@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * 
- */
-module Cliente {
-	requires clasesdominio;
-}
