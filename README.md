@@ -6,8 +6,9 @@
 
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Eclipse](https://img.shields.io/badge/Eclipse-2C2255?style=for-the-badge&logo=eclipse&logoColor=white)
+![GitKraken](https://img.shields.io/badge/GitKraken-179287?style=for-the-badge&logo=gitkraken&logoColor=white)
 ![Sockets](https://img.shields.io/badge/Sockets-TCP%2FIP-blue?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-En_Desarrollo-green?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-En_Desarrollo-yellow?style=for-the-badge)
 
 <br>
 
@@ -75,7 +76,7 @@ El sistema cuenta con un control de acceso (Usuario: `admin` / Clave: `admin`) y
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+## 🛠️ Tecnologías y Herramientas
 
 <div align="center">
 
@@ -83,27 +84,36 @@ El sistema cuenta con un control de acceso (Usuario: `admin` / Clave: `admin`) y
 | :--- | :--- |
 | **Java SE 21** | Lenguaje principal del desarrollo. |
 | **Java.net.Socket** | Comunicación de bajo nivel TCP. |
+| **GitKraken** | Gestión visual del control de versiones y ramas. |
 | **ObjectSerialization** | Transmisión de objetos complejos por red. |
 | **Multi-threading** | Gestión de múltiples clientes concurrentes. |
-| **Git & GitHub** | Control de versiones y trabajo colaborativo. |
 
 </div>
 
 ---
 
-## 🗓️ Roadmap de Entregas
+## 👥 Autores
 
-El desarrollo sigue un calendario escalonado de funcionalidades:
+<div align="center">
 
-* ✅ **Entrega Parcial:** Protocolo base, Login y gestión básica de Títulos.
-* 🔄 **Entrega Final (Enero):** Gestión completa de Títulos, Asignaturas y Matrículas.
-* 🔜 **Convocatoria Julio:** Inclusión del módulo de **Profesores**.
-* 🔜 **Convocatoria Especial:** Inclusión del módulo de **Alumnos**.
+  <table>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/EnriqueBDeL">
+          <img src="https://github.com/EnriqueBDeL.png" width="100px;" alt="Foto Enrique"/><br>
+          <sub><b>EnriqueBDeL</b></sub>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/Agata-gp">
+          <img src="https://github.com/Agata-gp.png" width="100px;" alt="Foto Agata"/><br>
+          <sub><b>Agata-gp</b></sub>
+        </a>
+      </td>
+    </tr>
+  </table>
 
----
-
-## 💻 Instalación y Ejecución
-
-1. **Clonar el repositorio**
-   ```bash
-   git clone [https://github.com/tu-usuario/Trabajo-Final-DAD1.git](https://github.com/tu-usuario/Trabajo-Final-DAD1.git)
+  <br>
+  <i>[ Desarrollado para la asignatura Desarrollo de Aplicaciones Distribuidas ]</i>
+  
+</div>
