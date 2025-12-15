@@ -5,4 +5,5 @@
  * 
  */
 module ClienteTFF {
+	requires clasesdominio;
 }
