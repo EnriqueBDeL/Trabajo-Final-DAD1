@@ -1,4 +1,4 @@
-package adu.ucam.servidor;
+package edu.ucam.servidor;
 
 public class ServidorPrincipal {
 
