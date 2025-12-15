@@ -5,4 +5,6 @@
  * 
  */
 module ServidorTFF {
+	requires clasesdominio;
+
 }

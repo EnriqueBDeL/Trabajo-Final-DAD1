@@ -1,5 +1,7 @@
 package edu.ucam.cliente;
 
+import java.io.IOException;
+
 import edu.ucam.cliente.interfaces.IAutentication;
 import edu.ucam.cliente.interfaces.IComunicationServer;
 import edu.ucam.cliente.interfaces.IRepository;
