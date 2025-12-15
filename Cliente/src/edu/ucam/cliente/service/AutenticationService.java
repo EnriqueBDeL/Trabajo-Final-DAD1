@@ -12,6 +12,7 @@ public class AutenticationService implements IAutentication {
         this.comServer = comServer;
     }
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
     @Override
@@ -38,4 +39,6 @@ public class AutenticationService implements IAutentication {
         comServer.disconnect();
     }
 >>>>>>> Stashed changes
+=======
+>>>>>>> origin/main
 }
