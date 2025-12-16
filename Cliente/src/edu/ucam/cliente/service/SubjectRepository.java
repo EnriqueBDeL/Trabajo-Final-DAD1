@@ -1,6 +1,7 @@
 package edu.ucam.cliente.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import edu.ucam.cliente.interfaces.IChannelData;
 import edu.ucam.cliente.interfaces.IComunicationServer;
@@ -28,5 +29,33 @@ public class SubjectRepository extends BaseRepository<Asignatura> {
 		
 		return value;
 		
+	}
+
+
+	@Override
+	public void delete(String id) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public List<Asignatura> list() throws IOException, ClassNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public void update(String id, Asignatura model) throws IOException, ClassNotFoundException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public int modelSize() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
