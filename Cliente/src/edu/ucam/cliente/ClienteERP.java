@@ -46,6 +46,13 @@ public class ClienteERP {
     	return false;
     }
     
+    public void insertarTitulo(Titulacion t) throws Exception {
+        tituRepository.add(t);
+    }
+
+    public Titulacion obtenerTitulo(String id) throws Exception {
+        return tituRepository.getModel(id);
+    }
     
     
 }

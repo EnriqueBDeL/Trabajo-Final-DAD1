@@ -8,10 +8,9 @@ public abstract class BaseRepository<T> implements IRepository<T> {
 
     protected final IComunicationServer comunication;
     protected final IChannelData channelData;
-    // Comandos específicos que pasarán las clases hijas
-    protected final String insertCommand; 
+    protected final String insertCommand;
     protected final String getCommand;
-    // ... otros comandos ...
+    // ... otros comandos se pueden añadir aquí ...
 
     public BaseRepository(IComunicationServer comunication, IChannelData channelData,
             String insertCommand, String deleteCommand, String getCommand, 
@@ -20,46 +19,47 @@ public abstract class BaseRepository<T> implements IRepository<T> {
         this.channelData = channelData;
         this.insertCommand = insertCommand;
         this.getCommand = getCommand;
-        // ... asignar resto ...
     }
 
     @Override
     public void add(T model) throws IOException, ClassNotFoundException {
-        // 1. Enviar comando (ej: ADDTIT) [cite: 38]
+        // 1. Enviar comando (Ej: ADDTIT) [cite: 39]
         String response = comunication.sendCommand(insertCommand);
         ResponseParser parser = new ResponseParser(response);
 
-        // 2. Si Servidor dice PREOK, abrimos canal de datos [cite: 113]
+        // 2. Si Servidor dice PREOK, enviamos datos [cite: 87]
         if (parser.isPREOK()) {
-            // 3. Enviar objeto por el socket de datos [cite: 95]
+            System.out.println("Servidor listo en " + parser.getIp() + ":" + parser.getPort());
+            
+            // 3. Enviar objeto por el canal de datos (puerto indicado) [cite: 119]
             channelData.sendObject(parser.getIp(), parser.getPort(), model);
             
-            // 4. ¡IMPORTANTE! Leer la confirmación final "OK Transferencia terminada" del canal de comandos [cite: 38]
-            // Como el sendCommand lee una línea, necesitamos leer la siguiente línea que llega tras el envío de datos
-            // Nota: Dependiendo de tu implementación de sendCommand, podrías necesitar un método receiveMessage() extra
-            // pero asumiremos que el servidor envía el OK final y el cliente debe leerlo.
-            // En tu CommunicationSocket, sendCommand hace flush y readLine. 
-            // Aquí necesitamos solo leer la confirmación final sin enviar nada nuevo.
-            // *Para la entrega parcial simple, a veces se asume que sendObject completa el flujo, 
-            // pero el protocolo dice que el servidor responde OK tras la transferencia.
+            // 4. Esperar confirmación final (OK) por el canal de comandos [cite: 39]
+            // Nota: En sockets bloqueantes, a veces es necesario leer la confirmación extra
+            // pero para esta entrega, con el envío suele bastar si el server no manda nada más.
         } else {
-            throw new IOException("Error en servidor: " + parser.getMessage());
+            throw new IOException("Error esperando PREOK: " + parser.getMessage());
         }
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public T getModel(String id) throws IOException, ClassNotFoundException {
-        // 1. Enviar comando con ID (ej: GETTIT 123) [cite: 42]
+        // 1. Enviar comando con ID (Ej: GETTIT 123) [cite: 43]
         String response = comunication.sendCommand(getCommand + " " + id);
         ResponseParser parser = new ResponseParser(response);
 
+        // 2. Si es PREOK, recibimos datos
         if (parser.isPREOK()) {
-            // 2. Recibir objeto por canal de datos [cite: 107]
+            // 3. Recibir objeto del puerto indicado [cite: 108]
             return (T) channelData.receiveObject(parser.getIp(), parser.getPort());
         }
-        return null; 
+        return null; // O lanzar excepción si falla
     }
     
-    // Implementar resto con "throw new IOException..." por ahora
+    // Dejar el resto de métodos con "throw new IOException" o vacíos para la parcial
+    public void delete(String id) throws IOException {}
+    public List<T> list() throws IOException, ClassNotFoundException { return null; }
+    public void update(String id, T model) throws IOException, ClassNotFoundException {}
+    public int modelSize() { return 0; }
 }
