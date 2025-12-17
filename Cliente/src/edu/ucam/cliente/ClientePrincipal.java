@@ -37,6 +37,8 @@ public class ClientePrincipal {
                     
                     
                     switch (opcion) {
+                    
+                    
                         case "1": // ADDTIT
                             System.out.println("\n--- NUEVO TÍTULO ---");
                             System.out.print("ID Título: ");
@@ -58,6 +60,8 @@ public class ClientePrincipal {
                             System.out.println("-> Solicitud de creación enviada.");
                             break;
 
+                            
+                            
                         case "2": // GETTIT
                             System.out.println("\n--- CONSULTAR TÍTULO ---");
                             System.out.print("ID a buscar: ");
