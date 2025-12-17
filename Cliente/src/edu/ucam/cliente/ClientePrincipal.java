@@ -7,13 +7,16 @@ import edu.ucam.domain.Titulacion;
 public class ClientePrincipal {
     
     public static void main(String args[]) {
-        Scanner scanner = new Scanner(System.in);
+        
+    	
+    	Scanner scanner = new Scanner(System.in);
+        
+        
         
         try {
             ClienteERP cliente = new ClienteERP();
             System.out.println("--- CONECTADO AL SERVIDOR ---");
             
-            // 1. Autenticación (Requisito: USER y PASS) [cite: 39]
             System.out.print("Usuario: ");
             String usuario = scanner.nextLine();
             System.out.print("Password: ");
@@ -22,10 +25,7 @@ public class ClientePrincipal {
             if(cliente.autenticar(usuario, password)) {
                 System.out.println("¡Login correcto! Bienvenido " + usuario);
                 
-                // Accedemos al repositorio (puedes hacer un getter en ClienteERP o usarlo directo si es public)
-                // Asumo que añades: public TituRepository getTituRepository() { return (TituRepository) tituRepository; }
-                // Ojo: Si tituRepository es privado en ClienteERP, necesitarás un método getter allí.
-                
+        
                 boolean salir = false;
                 while(!salir) {
                     System.out.println("\n--- MENÚ GESTIÓN UNIVERSIDAD ---");
