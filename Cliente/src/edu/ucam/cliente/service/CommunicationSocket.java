@@ -50,4 +50,10 @@ public class CommunicationSocket implements IComunicationServer{
 	}
 	
 
+	@Override
+    public String readLine() throws IOException {
+      
+        return br.readLine();
+    }
+
 }

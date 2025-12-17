@@ -9,10 +9,14 @@ public class AutenticationService implements IAutentication{
 	
 	private final IComunicationServer comunication;
 	
+	
+	
 	public AutenticationService(IComunicationServer comunication) {
 		this.comunication = comunication;
 	}
 
+//-----------------------------------------------------------------------------------------------|	
+	
 	@Override
 	public boolean autenticar(String usuario, String password) throws IOException {
 		String response = comunication.sendCommand("USER " + usuario);
@@ -26,6 +30,8 @@ public class AutenticationService implements IAutentication{
 		return false;
 	}
 
+//-----------------------------------------------------------------------------------------------|	
+	
 	@Override
 	public void closeSession() throws IOException {
 		comunication.sendCommand("EXIT");
