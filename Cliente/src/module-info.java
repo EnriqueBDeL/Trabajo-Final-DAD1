@@ -4,5 +4,5 @@ module ClienteTFF {
 	exports edu.ucam.cliente.interfaces;
 	exports edu.ucam.cliente;
 
-	requires clasesdominiov2;
+	requires clasesdominiov2NEW;
 }
