@@ -8,5 +8,7 @@ public interface IComunicationServer {
 	public void disconnect() throws IOException;
 	public boolean isAlive();
 	public String sendCommand(String command) throws IOException;
-	
+	public String readLine() throws IOException;
+
+
 }

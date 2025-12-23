@@ -6,15 +6,22 @@ import edu.ucam.domain.Titulacion;
 
 public class ClientePrincipal {
     
+	
     public static void main(String args[]) {
+<<<<<<< HEAD
         
     	
     	Scanner scanner = new Scanner(System.in);
         
         
+=======
+       
+    	Scanner scanner = new Scanner(System.in);
+>>>>>>> EntregaParcial
         
         try {
-            ClienteERP cliente = new ClienteERP();
+          
+        	ClienteERP cliente = new ClienteERP();
             System.out.println("--- CONECTADO AL SERVIDOR ---");
             
             System.out.print("Usuario: ");
@@ -25,8 +32,13 @@ public class ClientePrincipal {
             if(cliente.autenticar(usuario, password)) {
                 System.out.println("¡Login correcto! Bienvenido " + usuario);
                 
+<<<<<<< HEAD
         
+=======
+              
+>>>>>>> EntregaParcial
                 boolean salir = false;
+               
                 while(!salir) {
                     System.out.println("\n--- MENÚ GESTIÓN UNIVERSIDAD ---");
                     System.out.println("1. Añadir Título (ADDTIT)");
@@ -35,7 +47,10 @@ public class ClientePrincipal {
                     System.out.print("Seleccione opción: ");
                     String opcion = scanner.nextLine();
                     
+                    
                     switch (opcion) {
+                    
+                    
                         case "1": // ADDTIT
                             System.out.println("\n--- NUEVO TÍTULO ---");
                             System.out.print("ID Título: ");
@@ -43,23 +58,22 @@ public class ClientePrincipal {
                             System.out.print("Nombre: ");
                             String nombre = scanner.nextLine();
                             
-                            // Creamos el objeto vacío
                             Titulacion nuevaTitulacion = new Titulacion();
                             
-                            // INTENTA ESCRIBIR ESTAS DOS LÍNEAS:
-                            // Si al escribir el punto (.) no te sale setId, avísame.
-                            // Pero normalmente si hay getId, hay setId.
+                         
                             try {
                                 nuevaTitulacion.setId(id);
                                 nuevaTitulacion.setNombre(nombre); 
                             } catch (Error e) {
-                                // Si fallan los setters, es que la clase es rara, pero pruébalo
+
                             }
 
                             cliente.insertarTitulo(nuevaTitulacion); 
                             System.out.println("-> Solicitud de creación enviada.");
                             break;
 
+                            
+                            
                         case "2": // GETTIT
                             System.out.println("\n--- CONSULTAR TÍTULO ---");
                             System.out.print("ID a buscar: ");
@@ -67,8 +81,8 @@ public class ClientePrincipal {
                             
                             Titulacion t = cliente.obtenerTitulo(idBusqueda);
                             if (t != null) {
-                                // AQUÍ SOLO USAMOS LO QUE VIMOS EN LA FOTO
-                                System.out.println("RECUPERADO: " + t.getId() + " - " + t.getNombre());
+
+                            	System.out.println("RECUPERADO: " + t.getId() + " - " + t.getNombre());
                             } else {
                                 System.out.println("-> Error: No se pudo recuperar o no existe.");
                             }

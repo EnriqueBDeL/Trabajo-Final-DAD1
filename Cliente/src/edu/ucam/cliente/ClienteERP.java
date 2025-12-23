@@ -38,18 +38,26 @@ public class ClienteERP {
         return autentication.autenticar(usuario, password);
     }
     
+    
+    
     public void cerrarSesion() throws IOException {
         autentication.closeSession();
     }
+    
+    
     
     public boolean insertarAsignatura(Asignatura asig) {
     	return false;
     }
     
+    
+    
     public void insertarTitulo(Titulacion t) throws Exception {
         tituRepository.add(t);
     }
 
+    
+    
     public Titulacion obtenerTitulo(String id) throws Exception {
         return tituRepository.getModel(id);
     }

@@ -1,8 +1,9 @@
 module ClienteTFF {
-	exports edu.ucam.cliente.config;
-	exports edu.ucam.cliente.service;
-	exports edu.ucam.cliente.interfaces;
-	exports edu.ucam.cliente;
 
+<<<<<<< HEAD
 	requires clasesdominiov3;
+=======
+	requires clasesdominiov2;
+	
+>>>>>>> EntregaParcial
 }

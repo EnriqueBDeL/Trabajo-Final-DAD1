@@ -1,6 +1,9 @@
 module ServidorTFF {
-	exports edu.ucam.servidor.hilo;
-	exports edu.ucam.servidor;
 
+<<<<<<< HEAD
 	requires clasesdominiov3;
+=======
+	requires clasesdominiov2;
+	
+>>>>>>> EntregaParcial
 }
