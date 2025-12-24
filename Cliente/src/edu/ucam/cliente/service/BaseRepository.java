@@ -49,7 +49,7 @@ public abstract class BaseRepository<T> implements IRepository<T> {
 //----------------------------------------------------------------------------------------------|  
 
     
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") //Silencia la queja del compilador sobre el "T objeto = (T) channelData.receiveObject(...);"
     @Override
     public T getModel(String id) throws IOException, ClassNotFoundException {
         
@@ -60,7 +60,15 @@ public abstract class BaseRepository<T> implements IRepository<T> {
         
     	
     	if (parser.isPREOK()) {
-            try { Thread.sleep(50); } catch (InterruptedException e) {} 
+        
+    		try { 
+    			
+    			Thread.sleep(50); 
+    			
+    			} catch (InterruptedException e) {
+    				
+    				
+    			} 
 
             T objeto = (T) channelData.receiveObject(parser.getIp(), parser.getPort());
             
