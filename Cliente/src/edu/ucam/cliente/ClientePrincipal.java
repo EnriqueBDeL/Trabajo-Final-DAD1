@@ -8,16 +8,9 @@ public class ClientePrincipal {
     
 	
     public static void main(String args[]) {
-<<<<<<< HEAD
-        
-    	
+
+               
     	Scanner scanner = new Scanner(System.in);
-        
-        
-=======
-       
-    	Scanner scanner = new Scanner(System.in);
->>>>>>> EntregaParcial
         
         try {
           
@@ -32,11 +25,11 @@ public class ClientePrincipal {
             if(cliente.autenticar(usuario, password)) {
                 System.out.println("¡Login correcto! Bienvenido " + usuario);
                 
-<<<<<<< HEAD
+
         
-=======
+
               
->>>>>>> EntregaParcial
+
                 boolean salir = false;
                
                 while(!salir) {

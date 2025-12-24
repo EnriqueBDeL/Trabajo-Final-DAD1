@@ -22,17 +22,20 @@ public class ClienteERP {
     private final IRepository<Titulacion> tituRepository;
     
     
+/////////////////////////////////////////////////////////////////////////////////////////////|       
     public ClienteERP() throws IOException{
+    	
     	this.comunication = new CommunicationSocket();
         this.comunication.connect();
         
         IChannelData channelData = new ChannelData();
+       
         this.autentication = new AutenticationService(this.comunication);
         this.subjectRespository = new SubjectRepository(comunication, channelData);
         this.tituRepository = new TituRepository(comunication, channelData);
         
     } 
-    
+/////////////////////////////////////////////////////////////////////////////////////////////|    
     
     public boolean autenticar(String usuario, String password) throws IOException {
         return autentication.autenticar(usuario, password);
