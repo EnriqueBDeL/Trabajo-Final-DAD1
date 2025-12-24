@@ -12,7 +12,7 @@ public abstract class BaseRepository<T> implements IRepository<T> {
     protected final String getCommand;
 
     
-    
+////////////////////////////////////////////////////////////////////////////////////////////|     
     public BaseRepository(IComunicationServer comunication, IChannelData channelData,
             String insertCommand, String deleteCommand, String getCommand, 
             String listCommand, String countCommand, String updateCommand) {
@@ -21,15 +21,20 @@ public abstract class BaseRepository<T> implements IRepository<T> {
         this.insertCommand = insertCommand;
         this.getCommand = getCommand;
     }
+////////////////////////////////////////////////////////////////////////////////////////////|  
+    
     
 //----------------------------------------------------------------------------------------------|  
 
     @Override
     public void add(T model) throws IOException, ClassNotFoundException {
-        String response = comunication.sendCommand(insertCommand);
-        ResponseParser parser = new ResponseParser(response);
+     
+    	String response = comunication.sendCommand(insertCommand);
+        
+    	ResponseParser parser = new ResponseParser(response);
 
-        if (parser.isPREOK()) {
+       
+    	if (parser.isPREOK()) {
         	
             System.out.println("Servidor listo en " + parser.getIp() + ":" + parser.getPort());
             channelData.sendObject(parser.getIp(), parser.getPort(), model);
@@ -47,10 +52,14 @@ public abstract class BaseRepository<T> implements IRepository<T> {
     @SuppressWarnings("unchecked")
     @Override
     public T getModel(String id) throws IOException, ClassNotFoundException {
-        String response = comunication.sendCommand(getCommand + " " + id);
-        ResponseParser parser = new ResponseParser(response);
+        
+    	String response = comunication.sendCommand(getCommand + " " + id);
+        
+    	ResponseParser parser = new ResponseParser(response);
 
-        if (parser.isPREOK()) {
+        
+    	
+    	if (parser.isPREOK()) {
             try { Thread.sleep(50); } catch (InterruptedException e) {} 
 
             T objeto = (T) channelData.receiveObject(parser.getIp(), parser.getPort());

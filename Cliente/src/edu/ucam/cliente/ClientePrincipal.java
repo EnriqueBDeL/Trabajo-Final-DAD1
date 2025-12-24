@@ -15,7 +15,8 @@ public class ClientePrincipal {
         try {
           
         	ClienteERP cliente = new ClienteERP();
-            System.out.println("--- CONECTADO AL SERVIDOR ---");
+          
+        	System.out.println("--- CONECTADO AL SERVIDOR ---");
             
             System.out.print("Usuario: ");
             String usuario = scanner.nextLine();
@@ -33,6 +34,7 @@ public class ClientePrincipal {
                 boolean salir = false;
                
                 while(!salir) {
+                	
                     System.out.println("\n--- MENÚ GESTIÓN UNIVERSIDAD ---");
                     System.out.println("1. Añadir Título (ADDTIT)");
                     System.out.println("2. Consultar Título (GETTIT)");
@@ -65,7 +67,7 @@ public class ClientePrincipal {
                             System.out.println("-> Solicitud de creación enviada.");
                             break;
 
-                            
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%|                            
                             
                         case "2": // GETTIT
                             System.out.println("\n--- CONSULTAR TÍTULO ---");
@@ -80,6 +82,8 @@ public class ClientePrincipal {
                                 System.out.println("-> Error: No se pudo recuperar o no existe.");
                             }
                             break;
+                         
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%|                            
 
                         case "3": // EXIT
                             cliente.cerrarSesion();

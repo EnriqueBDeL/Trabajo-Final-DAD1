@@ -18,8 +18,11 @@ public class CommunicationSocket implements IComunicationServer{
 	private PrintWriter pw;
 	private boolean status;
 
+	
+	
 	@Override
 	public void connect() throws IOException {
+	
 		mySocket = new Socket(ClientConfig.ip,ClientConfig.comunicationPort);
 		br = new BufferedReader(new InputStreamReader(mySocket.getInputStream()));
 		pw = new PrintWriter(new OutputStreamWriter(mySocket.getOutputStream()));
@@ -27,28 +30,38 @@ public class CommunicationSocket implements IComunicationServer{
 		
 	}
 
+//--------------------------------------------------------------------------------------------------------|	
+
 	@Override
 	public void disconnect() throws IOException {
+		
 		if(mySocket.isConnected()) {
 			mySocket.close();
 			status = false;
 		}
 		
 	}
-
+	
+//--------------------------------------------------------------------------------------------------------|	
+	
 	@Override
 	public boolean isAlive() {
 		return status;
 	}
+	
+//--------------------------------------------------------------------------------------------------------|	
 
 	@Override
 	public String sendCommand(String command) throws IOException {
+		
 		pw.println(communicationId + " " + command);
 		pw.flush();
 		communicationId++;
+		
 		return br.readLine();
 	}
 	
+//--------------------------------------------------------------------------------------------------------|	
 
 	@Override
     public String readLine() throws IOException {

@@ -11,20 +11,33 @@ public class AutenticationService implements IAutentication{
 	
 	
 	
+/////////////////////////////////////////////////////////////////////|	
 	public AutenticationService(IComunicationServer comunication) {
+		
 		this.comunication = comunication;
+		
 	}
-
+/////////////////////////////////////////////////////////////////////|
+	
+	
+	
+	
 //-----------------------------------------------------------------------------------------------|	
 	
 	@Override
 	public boolean autenticar(String usuario, String password) throws IOException {
+		
 		String response = comunication.sendCommand("USER " + usuario);
+		
 		ResponseParser parser = new ResponseParser(response);
+		
+		
 		if(parser.isSuccess()) {
+			
 			response = comunication.sendCommand("PASS " + password);
 			parser = new ResponseParser(response);
             return parser.isSuccess();
+            
 		}
 		
 		return false;
@@ -34,8 +47,11 @@ public class AutenticationService implements IAutentication{
 	
 	@Override
 	public void closeSession() throws IOException {
+		
 		comunication.sendCommand("EXIT");
+		
 		comunication.disconnect();
+		
 	}
 
 }
