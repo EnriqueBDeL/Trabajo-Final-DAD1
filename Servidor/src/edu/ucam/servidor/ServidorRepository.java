@@ -1,4 +1,4 @@
-package edu.ucam.servidor.data;
+package edu.ucam.servidor;
 
 import java.util.Hashtable;
 import edu.ucam.domain.Titulacion;
