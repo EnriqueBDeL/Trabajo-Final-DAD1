@@ -12,7 +12,7 @@ public class HiloServidor implements Runnable {
     private BufferedReader in;
     private PrintWriter out;
 
-    private Hashtable<String, Class<? extends Comando>> comandos = new Hashtable<>();
+    private Hashtable<String, Comando> comandos = new Hashtable<>();
 
     public HiloServidor(Socket socket) {
         this.socket = socket;
