@@ -1,100 +1,21 @@
-package edu.ucam.servidor.hilo;
+package edu.ucam.servidor.data;
 
-import java.io.*;
-import java.net.*;
-
+import java.util.Hashtable;
 import edu.ucam.domain.Titulacion;
-import edu.ucam.servidor.ServidorPrincipal;
 
 public class ServidorRepository {
 
-    public void ejecutar(
-            String linea,
-            Socket socket,
-            BufferedReader in,
-            PrintWriter out
-    ) {
+    private static Hashtable<String, Titulacion> titulos = new Hashtable<>();
 
-        try {
-            System.out.println("Recibido: " + linea);
+    public static void addTitulo(Titulacion t) {
+        titulos.put(t.getId(), t);
+    }
 
-            // <num> <comando> <args>
-            String[] partes = linea.split(" ");
-            String numEnvio = partes[0];
-            String comando = partes[1];
+    public static Titulacion getTitulo(String id) {
+        return titulos.get(id);
+    }
 
-            switch (comando) {
-
-                case "USER":
-                    out.println("OK " + numEnvio + " 201 Envie password");
-                    break;
-
-                case "PASS":
-                    out.println("OK " + numEnvio + " 202 Welcome admin");
-                    break;
-
-                case "EXIT":
-                    out.println("OK " + numEnvio + " 200 Bye");
-                    socket.close();
-                    break;
-
-                case "ADDTIT":
-                    try (ServerSocket dataServer = new ServerSocket(0)) {
-
-                        int puertoDatos = dataServer.getLocalPort();
-                        out.println("PREOK " + numEnvio + " 203 127.0.0.1 " + puertoDatos);
-
-                        Socket socketDatos = dataServer.accept();
-                        ObjectInputStream ois =
-                                new ObjectInputStream(socketDatos.getInputStream());
-
-                        Titulacion titulo = (Titulacion) ois.readObject();
-
-                        ServidorPrincipal.titulos.put(
-                                titulo.getId(),
-                                titulo
-                        );
-
-                        System.out.println("Título guardado: " + titulo.getNombre());
-
-                        out.println("OK " + numEnvio + " 204 Transferencia terminada");
-                    }
-                    break;
-
-                case "GETTIT":
-                    String idTitulo = partes[2];
-
-                    if (ServidorPrincipal.titulos.containsKey(idTitulo)) {
-
-                        try (ServerSocket dataServer = new ServerSocket(0)) {
-
-                            int puertoDatos = dataServer.getLocalPort();
-                            out.println("PREOK " + numEnvio + " 205 127.0.0.1 " + puertoDatos);
-
-                            Socket socketDatos = dataServer.accept();
-                            ObjectOutputStream oos =
-                                    new ObjectOutputStream(socketDatos.getOutputStream());
-
-                            oos.writeObject(
-                                    ServidorPrincipal.titulos.get(idTitulo)
-                            );
-
-                            out.println("OK " + numEnvio + " 206 Transferencia terminada");
-                        }
-
-                    } else {
-                        out.println("FAILED " + numEnvio + " 404 Titulo no encontrado");
-                    }
-                    break;
-
-                default:
-                    out.println("FAILED " + numEnvio + " 400 Comando desconocido");
-                    break;
-            }
-
-        } catch (Exception e) {
-            out.println("FAILED 0 500 Error servidor");
-            e.printStackTrace();
-        }
+    public static boolean existeTitulo(String id) {
+        return titulos.containsKey(id);
     }
 }
