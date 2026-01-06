@@ -1,21 +1,21 @@
 package edu.ucam.servidor.data;
 
 import java.util.Hashtable;
-import edu.ucam.domain.Titulacion;
+import java.lang.reflect.Method;
 
-public class DataRepository {
+public class DataRepository<T> {
 
-    private static Hashtable<String, Titulacion> titulos = new Hashtable<>();
+    private Hashtable<String, T> datos = new Hashtable<>();
 
-    public static void addTitulo(Titulacion t) {
-        titulos.put(t.getId(), t);
+    public void add(T obj) {
+        datos.put(getId(obj), obj);
     }
 
-    public static Titulacion getTitulo(String id) {
-        return titulos.get(id);
+    public T get(String id) {
+        return datos.get(id);
     }
 
-    public static boolean existeTitulo(String id) {
-        return titulos.containsKey(id);
+    public boolean existe(String id) {
+        return datos.containsKey(id);
     }
 }
