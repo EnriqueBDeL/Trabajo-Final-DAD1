@@ -1,4 +1,4 @@
-package edu.ucam.servidor.comando;
+package edu.ucam.servidor.comandos;
 
 import java.io.*;
 import java.net.Socket;
