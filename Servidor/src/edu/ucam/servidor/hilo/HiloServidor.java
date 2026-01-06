@@ -38,7 +38,7 @@ public class HiloServidor implements Runnable {
                 String[] partes = linea.split(" ");
                 String comandoStr = partes[1];
 
-                Class<? extends Comando> clase = comandos.get(comandoStr);
+                Comando clase = comandos.get(comandoStr);
 
                 if (clase == null) {
                     out.println("FAILED " + partes[0] + " 400 Comando desconocido");
