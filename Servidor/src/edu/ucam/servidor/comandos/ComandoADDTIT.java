@@ -6,14 +6,11 @@ import java.net.*;
 import edu.ucam.domain.Titulacion;
 import edu.ucam.servidor.data.DataRepository;
 
-public class ComandoADDTIT extends Comando {
-
-    public ComandoADDTIT(Socket socket, BufferedReader in, PrintWriter out, String[] partes) {
-        super(socket, in, out, partes);
-    }
+public class ComandoADDTIT implements IComando {
 
     @Override
-    public void ejecutar() {
+    public void ejecutar(Socket socket, BufferedReader in, PrintWriter out, String[] partes) {
+
         try (ServerSocket dataServer = new ServerSocket(0)) {
 
             int puerto = dataServer.getLocalPort();
