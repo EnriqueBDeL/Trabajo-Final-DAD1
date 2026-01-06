@@ -1,4 +1,4 @@
-package edu.ucam.servidor.comandos;
+package edu.ucam.servidor.comandos.interfaz;
 
 import java.io.*;
 import java.net.Socket;
@@ -10,7 +10,7 @@ public abstract class Comando {
     protected PrintWriter out;
     protected String[] partes;
 
-    public Comando(Socket socket, BufferedReader in, PrintWriter out, String[] partes) {
+    public IComando(Socket socket, BufferedReader in, PrintWriter out, String[] partes) {
         this.socket = socket;
         this.in = in;
         this.out = out;
