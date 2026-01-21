@@ -18,11 +18,17 @@ public class HiloServidor implements Runnable {
         
         comandos.put("USER", new ComandoUSER());
         comandos.put("PASS", new ComandoPASS());
+        
         comandos.put("ADDTIT", new ComandoADDTIT());
         comandos.put("GETTIT", new ComandoGETTIT());
+        
         comandos.put("EXIT", new ComandoEXIT());
+        
         comandos.put("ADDASIG", new ComandoADDASIG());
         comandos.put("GETASIG", new ComandoGETASIG());
+        
+        comandos.put("ADDMATRICULA", new ComandoADDMATRICULA());
+        comandos.put("GETMATRICULA", new ComandoGETMATRICULA());
     }
 
     @Override
