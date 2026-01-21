@@ -7,11 +7,20 @@ public class ComandoUSER extends Comando {
 
     @Override
     public void ejecutar(Socket socket, PrintWriter out, String[] partes) {
-        if (partes.length < 3) {
-            out.println(partes[0] + " FAILED 400 Falta usuario");
+
+    	if (partes.length < 3) {
+
+    		out.println("FAILED " + partes[0] + " 400 Falta nombre de usuario");
             return;
         }
+
         String usuario = partes[2];
-        out.println(partes[0] + " OK Usuario " + usuario + " recibido");
+        
+
+        if ("admin".equals(usuario)) {
+             out.println("OK " + partes[0] + " 200 Usuario correcto, envie password");
+        } else {
+             out.println("FAILED " + partes[0] + " 401 Usuario no reconocido");
+        }
     }
 }
