@@ -1,21 +1,28 @@
 package edu.ucam.servidor;
 
-import java.util.Hashtable;
+import edu.ucam.domain.Asignatura;
+import edu.ucam.domain.Matricula;
 import edu.ucam.domain.Titulacion;
+import edu.ucam.servidor.data.DataRepository;
+
 
 public class ServidorRepository {
 
-    private static Hashtable<String, Titulacion> titulos = new Hashtable<>();
+    public static DataRepository<Titulacion> repoTitulos = new DataRepository<>();
+    public static DataRepository<Asignatura> repoAsignaturas = new DataRepository<>();
+    public static DataRepository<Matricula> repoMatriculas = new DataRepository<>();
 
-    public static void addTitulo(Titulacion t) {
-        titulos.put(t.getId(), t);
-    }
 
-    public static Titulacion getTitulo(String id) {
-        return titulos.get(id);
-    }
+    public static void addTitulo(Titulacion t) { repoTitulos.add(t); }
+    public static Titulacion getTitulo(String id) { return repoTitulos.get(id); }
+    public static boolean existeTitulo(String id) { return repoTitulos.existe(id); }
 
-    public static boolean existeTitulo(String id) {
-        return titulos.containsKey(id);
-    }
+    public static void addAsignatura(Asignatura a) { repoAsignaturas.add(a); }
+    public static Asignatura getAsignatura(String id) { return repoAsignaturas.get(id); }
+    public static boolean existeAsignatura(String id) { return repoAsignaturas.existe(id); }
+    
+
+    public static void addMatricula(Matricula m) { repoMatriculas.add(m); }
+    public static Matricula getMatricula(String id) { return repoMatriculas.get(id); }
+
 }

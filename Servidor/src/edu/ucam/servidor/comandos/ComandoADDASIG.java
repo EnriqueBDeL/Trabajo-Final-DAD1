@@ -4,20 +4,22 @@ import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import edu.ucam.domain.Titulacion;
+import edu.ucam.domain.Asignatura;
 import edu.ucam.servidor.ServidorRepository;
 
-public class ComandoADDTIT extends Comando {
+public class ComandoADDASIG extends Comando {
 
+	
+	
     @Override
     public void ejecutar(Socket socket, PrintWriter out, String[] partes) {
-        
-        ServerSocket serverSocketDatos = null;
+
+    	ServerSocket serverSocketDatos = null;
         Socket socketDatos = null;
 
         try {
-      
-            serverSocketDatos = new ServerSocket(0);
+
+        	serverSocketDatos = new ServerSocket(0);
             int puertoDatos = serverSocketDatos.getLocalPort();
             String ip = socket.getLocalAddress().getHostAddress();
 
@@ -27,22 +29,23 @@ public class ComandoADDTIT extends Comando {
             socketDatos = serverSocketDatos.accept();
 
             ObjectInputStream ois = new ObjectInputStream(socketDatos.getInputStream());
-            Titulacion titulacion = (Titulacion) ois.readObject();
+            Asignatura asig = (Asignatura) ois.readObject();
 
-            ServidorRepository.addTitulo(titulacion);
-            System.out.println("Titulacion recibida: " + titulacion.getNombre());
+            ServidorRepository.addAsignatura(asig);
+            System.out.println("Asignatura guardada: " + asig.getNombre());
 
-            out.println("OK " + partes[0] + " 201 Transferencia terminada");
+            out.println("OK " + partes[0] + " 201 Insertada correctamente");
+            
+            ois.close();
 
         } catch (Exception e) {
             e.printStackTrace();
-            out.println("FAILED " + partes[0] + " 500 Error en transmision");
-            
+            out.println("FAILED " + partes[0] + " 500 Error al recibir asignatura");
         } finally {
             try {
                 if (socketDatos != null) socketDatos.close();
                 if (serverSocketDatos != null) serverSocketDatos.close();
-            } catch (Exception ex) { }
+            } catch (Exception ex) {}
         }
     }
 }
