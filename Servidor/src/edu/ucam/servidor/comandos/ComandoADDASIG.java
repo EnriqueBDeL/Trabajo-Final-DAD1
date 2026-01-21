@@ -9,38 +9,26 @@ import edu.ucam.servidor.ServidorRepository;
 
 public class ComandoADDASIG extends Comando {
 
-	
-	
     @Override
     public void ejecutar(Socket socket, PrintWriter out, String[] partes) {
-
-    	ServerSocket serverSocketDatos = null;
+        ServerSocket serverSocketDatos = null;
         Socket socketDatos = null;
 
         try {
-
-        	serverSocketDatos = new ServerSocket(0);
-            int puertoDatos = serverSocketDatos.getLocalPort();
-            String ip = socket.getLocalAddress().getHostAddress();
-
-        
-            out.println("PREOK " + partes[0] + " 200 " + ip + " " + puertoDatos);
+            serverSocketDatos = new ServerSocket(0);
+            out.println("PREOK " + partes[0] + " 200 " + socket.getLocalAddress().getHostAddress() + " " + serverSocketDatos.getLocalPort());
 
             socketDatos = serverSocketDatos.accept();
-
             ObjectInputStream ois = new ObjectInputStream(socketDatos.getInputStream());
-            Asignatura asig = (Asignatura) ois.readObject();
+            Asignatura a = (Asignatura) ois.readObject();
 
-            ServidorRepository.addAsignatura(asig);
-            System.out.println("Asignatura guardada: " + asig.getNombre());
+            ServidorRepository.addAsignatura(a);
 
             out.println("OK " + partes[0] + " 201 Insertada correctamente");
-            
             ois.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
-            out.println("FAILED " + partes[0] + " 500 Error al recibir asignatura");
+            out.println("FAILED " + partes[0] + " 500 Error");
         } finally {
             try {
                 if (socketDatos != null) socketDatos.close();

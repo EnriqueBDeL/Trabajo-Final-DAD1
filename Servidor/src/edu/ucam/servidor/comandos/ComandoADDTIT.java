@@ -11,38 +11,29 @@ public class ComandoADDTIT extends Comando {
 
     @Override
     public void ejecutar(Socket socket, PrintWriter out, String[] partes) {
-        
         ServerSocket serverSocketDatos = null;
         Socket socketDatos = null;
 
         try {
-      
             serverSocketDatos = new ServerSocket(0);
-            int puertoDatos = serverSocketDatos.getLocalPort();
-            String ip = socket.getLocalAddress().getHostAddress();
-
-        
-            out.println("PREOK " + partes[0] + " 200 " + ip + " " + puertoDatos);
+            out.println("PREOK " + partes[0] + " 200 " + socket.getLocalAddress().getHostAddress() + " " + serverSocketDatos.getLocalPort());
 
             socketDatos = serverSocketDatos.accept();
-
             ObjectInputStream ois = new ObjectInputStream(socketDatos.getInputStream());
-            Titulacion titulacion = (Titulacion) ois.readObject();
+            Titulacion t = (Titulacion) ois.readObject();
 
-            ServidorRepository.addTitulo(titulacion);
-            System.out.println("Titulacion recibida: " + titulacion.getNombre());
-
+            ServidorRepository.addTitulo(t);
+            
             out.println("OK " + partes[0] + " 201 Transferencia terminada");
+            ois.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
-            out.println("FAILED " + partes[0] + " 500 Error en transmision");
-            
+            out.println("FAILED " + partes[0] + " 500 Error");
         } finally {
             try {
                 if (socketDatos != null) socketDatos.close();
                 if (serverSocketDatos != null) serverSocketDatos.close();
-            } catch (Exception ex) { }
+            } catch (Exception ex) {}
         }
     }
 }

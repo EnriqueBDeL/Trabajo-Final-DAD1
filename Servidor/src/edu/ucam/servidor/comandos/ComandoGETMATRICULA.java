@@ -11,18 +11,16 @@ public class ComandoGETMATRICULA extends Comando {
 
     @Override
     public void ejecutar(Socket socket, PrintWriter out, String[] partes) {
-        
         if (partes.length < 3) {
-            out.println("FAILED " + partes[0] + " 400 Falta el ID de la matricula");
+            out.println("FAILED " + partes[0] + " 400 Falta ID");
             return;
         }
 
-        String idMatricula = partes[2];
-
-        Matricula m = ServidorRepository.getMatricula(idMatricula);
+        String id = partes[2];
+        Matricula m = ServidorRepository.getMatricula(id);
         
         if (m == null) {
-            out.println("FAILED " + partes[0] + " 404 Matricula no encontrada");
+            out.println("FAILED " + partes[0] + " 404 No encontrada");
             return;
         }
 
@@ -31,26 +29,19 @@ public class ComandoGETMATRICULA extends Comando {
 
         try {
             serverSocketDatos = new ServerSocket(0);
-            int puertoDatos = serverSocketDatos.getLocalPort();
-            String ip = socket.getLocalAddress().getHostAddress();
-
-            out.println("PREOK " + partes[0] + " 200 " + ip + " " + puertoDatos);
+            out.println("PREOK " + partes[0] + " 200 " + socket.getLocalAddress().getHostAddress() + " " + serverSocketDatos.getLocalPort());
 
             socketDatos = serverSocketDatos.accept();
-
             ObjectOutputStream oos = new ObjectOutputStream(socketDatos.getOutputStream());
+            
             oos.writeObject(m);
             oos.flush();
 
-            System.out.println("Enviada matrícula: " + idMatricula);
-
-            out.println("OK " + partes[0] + " 200 Transferencia finalizada");
-            
+            out.println("OK " + partes[0] + " 200 Transferencia terminada");
             oos.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
-            out.println("FAILED " + partes[0] + " 500 Error en envio");
+            out.println("FAILED " + partes[0] + " 500 Error");
         } finally {
             try {
                 if (socketDatos != null) socketDatos.close();

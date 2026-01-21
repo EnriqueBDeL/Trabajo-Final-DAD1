@@ -11,18 +11,14 @@ public class ComandoGETASIG extends Comando {
 
     @Override
     public void ejecutar(Socket socket, PrintWriter out, String[] partes) {
-
-    	
         if (partes.length < 3) {
-            out.println("FAILED " + partes[0] + " 400 Falta ID asignatura");
+            out.println("FAILED " + partes[0] + " 400 Falta ID");
             return;
         }
 
-        String idBusqueda = partes[2];
-
-
-        if (!ServidorRepository.existeAsignatura(idBusqueda)) {
-            out.println("FAILED " + partes[0] + " 404 Asignatura no encontrada");
+        String id = partes[2];
+        if (!ServidorRepository.existeAsignatura(id)) {
+            out.println("FAILED " + partes[0] + " 404 No encontrada");
             return;
         }
 
@@ -31,28 +27,19 @@ public class ComandoGETASIG extends Comando {
 
         try {
             serverSocketDatos = new ServerSocket(0);
-            int puertoDatos = serverSocketDatos.getLocalPort();
-            String ip = socket.getLocalAddress().getHostAddress();
-
-            out.println("PREOK " + partes[0] + " 200 " + ip + " " + puertoDatos);
+            out.println("PREOK " + partes[0] + " 200 " + socket.getLocalAddress().getHostAddress() + " " + serverSocketDatos.getLocalPort());
 
             socketDatos = serverSocketDatos.accept();
-
             ObjectOutputStream oos = new ObjectOutputStream(socketDatos.getOutputStream());
             
-            Asignatura asig = ServidorRepository.getAsignatura(idBusqueda);
-            oos.writeObject(asig);
+            oos.writeObject(ServidorRepository.getAsignatura(id));
             oos.flush();
 
-            System.out.println("Enviada asignatura: " + asig.getNombre());
-
-            out.println("OK " + partes[0] + " 200 Transferencia finalizada");
-            
+            out.println("OK " + partes[0] + " 200 Transferencia terminada");
             oos.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
-            out.println("FAILED " + partes[0] + " 500 Error al enviar datos");
+            out.println("FAILED " + partes[0] + " 500 Error");
         } finally {
             try {
                 if (socketDatos != null) socketDatos.close();
