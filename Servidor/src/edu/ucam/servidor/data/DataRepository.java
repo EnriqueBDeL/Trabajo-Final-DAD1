@@ -7,15 +7,43 @@ public class DataRepository<T> {
 
     private Hashtable<String, T> datos = new Hashtable<>();
 
+    
+    
     public void add(T obj) {
-        datos.put(getId(obj), obj);
+        String id = obtenerId(obj);
+        
+        if (id != null) {
+            datos.put(id, obj);
+        } else {
+            System.out.println("Error: No se pudo obtener el ID del objeto.");
+        }
     }
 
+    
+    
     public T get(String id) {
         return datos.get(id);
     }
 
+    
     public boolean existe(String id) {
         return datos.containsKey(id);
+    }
+
+  
+    private String obtenerId(T obj) {
+    	
+        try {
+
+        	Method metodoGetId = obj.getClass().getMethod("getId");
+            
+            Object resultado = metodoGetId.invoke(obj);
+            
+            return (String) resultado;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

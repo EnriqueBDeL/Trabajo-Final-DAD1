@@ -27,6 +27,8 @@ public class ServidorPrincipal {
     			
                 Socket cliente = server.accept();
                 
+                System.out.println("Cliente conectado desde: " + cliente.getInetAddress());
+                
                 new Thread(new HiloServidor(cliente)).start();
             
     		}
