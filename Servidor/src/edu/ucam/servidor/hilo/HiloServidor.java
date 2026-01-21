@@ -7,6 +7,12 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Hashtable;
 import edu.ucam.servidor.comandos.*;
+import edu.ucam.servidor.comandos.asignatura.ComandoADDASIG;
+import edu.ucam.servidor.comandos.asignatura.ComandoGETASIG;
+import edu.ucam.servidor.comandos.matricula.ComandoADDMATRICULA;
+import edu.ucam.servidor.comandos.matricula.ComandoGETMATRICULA;
+import edu.ucam.servidor.comandos.titulo.ComandoADDTIT;
+import edu.ucam.servidor.comandos.titulo.ComandoGETTIT;
 
 public class HiloServidor implements Runnable {
 

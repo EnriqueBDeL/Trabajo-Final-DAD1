@@ -1,13 +1,14 @@
-package edu.ucam.servidor.comandos;
+package edu.ucam.servidor.comandos.asignatura;
 
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import edu.ucam.domain.Titulacion;
+import edu.ucam.domain.Asignatura;
 import edu.ucam.servidor.ServidorRepository;
+import edu.ucam.servidor.comandos.Comando;
 
-public class ComandoGETTIT extends Comando {
+public class ComandoGETASIG extends Comando {
 
     @Override
     public void ejecutar(Socket socket, PrintWriter out, String[] partes) {
@@ -17,8 +18,8 @@ public class ComandoGETTIT extends Comando {
         }
 
         String id = partes[2];
-        if (!ServidorRepository.existeTitulo(id)) {
-            out.println("FAILED " + partes[0] + " 404 No encontrado");
+        if (!ServidorRepository.existeAsignatura(id)) {
+            out.println("FAILED " + partes[0] + " 404 No encontrada");
             return;
         }
 
@@ -32,7 +33,7 @@ public class ComandoGETTIT extends Comando {
             socketDatos = serverSocketDatos.accept();
             ObjectOutputStream oos = new ObjectOutputStream(socketDatos.getOutputStream());
             
-            oos.writeObject(ServidorRepository.getTitulo(id));
+            oos.writeObject(ServidorRepository.getAsignatura(id));
             oos.flush();
 
             out.println("OK " + partes[0] + " 200 Transferencia terminada");

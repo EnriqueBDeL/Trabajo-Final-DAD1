@@ -1,29 +1,17 @@
-package edu.ucam.servidor.comandos;
+package edu.ucam.servidor.comandos.asignatura;
 
-import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import edu.ucam.domain.Matricula;
+import edu.ucam.domain.Asignatura;
 import edu.ucam.servidor.ServidorRepository;
+import edu.ucam.servidor.comandos.Comando;
 
-public class ComandoGETMATRICULA extends Comando {
+public class ComandoADDASIG extends Comando {
 
     @Override
     public void ejecutar(Socket socket, PrintWriter out, String[] partes) {
-        if (partes.length < 3) {
-            out.println("FAILED " + partes[0] + " 400 Falta ID");
-            return;
-        }
-
-        String id = partes[2];
-        Matricula m = ServidorRepository.getMatricula(id);
-        
-        if (m == null) {
-            out.println("FAILED " + partes[0] + " 404 No encontrada");
-            return;
-        }
-
         ServerSocket serverSocketDatos = null;
         Socket socketDatos = null;
 
@@ -32,13 +20,13 @@ public class ComandoGETMATRICULA extends Comando {
             out.println("PREOK " + partes[0] + " 200 " + socket.getLocalAddress().getHostAddress() + " " + serverSocketDatos.getLocalPort());
 
             socketDatos = serverSocketDatos.accept();
-            ObjectOutputStream oos = new ObjectOutputStream(socketDatos.getOutputStream());
-            
-            oos.writeObject(m);
-            oos.flush();
+            ObjectInputStream ois = new ObjectInputStream(socketDatos.getInputStream());
+            Asignatura a = (Asignatura) ois.readObject();
 
-            out.println("OK " + partes[0] + " 200 Transferencia terminada");
-            oos.close();
+            ServidorRepository.addAsignatura(a);
+
+            out.println("OK " + partes[0] + " 201 Insertada correctamente");
+            ois.close();
 
         } catch (Exception e) {
             out.println("FAILED " + partes[0] + " 500 Error");

@@ -1,4 +1,4 @@
-package edu.ucam.servidor.comandos;
+package edu.ucam.servidor.comandos.matricula;
 
 import java.io.ObjectInputStream;
 import java.io.PrintWriter;
@@ -6,6 +6,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import edu.ucam.domain.Matricula;
 import edu.ucam.servidor.ServidorRepository;
+import edu.ucam.servidor.comandos.Comando;
 
 public class ComandoADDMATRICULA extends Comando {
 
