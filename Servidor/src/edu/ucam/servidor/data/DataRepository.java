@@ -46,4 +46,10 @@ public class DataRepository<T> {
             return null;
         }
     }
+    
+    public void remove(String id) {
+        datos.remove(id);
+    }
+    
+    
 }

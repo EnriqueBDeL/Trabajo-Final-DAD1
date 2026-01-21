@@ -87,6 +87,16 @@ public class ClientePrincipal {
                             break;
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%|                        
+                        case "7":
+                            System.out.print("ID Título a borrar: ");
+                            cliente.borrarTitulo(scanner.nextLine());
+                            break;
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%|                        
+                        case "8":
+                            System.out.print("ID Asignatura a borrar: ");
+                            cliente.borrarAsignatura(scanner.nextLine());
+                            break;              
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%|                        
                         case "0":
                             cliente.cerrarSesion();
                             salir = true;

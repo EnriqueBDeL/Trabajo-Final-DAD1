@@ -10,6 +10,7 @@ public abstract class BaseRepository<T> implements IRepository<T> {
     protected final IChannelData channelData;
     protected final String insertCommand;
     protected final String getCommand;
+    protected final String deleteCommand;
 
     
 ////////////////////////////////////////////////////////////////////////////////////////////|     
@@ -20,6 +21,8 @@ public abstract class BaseRepository<T> implements IRepository<T> {
         this.channelData = channelData;
         this.insertCommand = insertCommand;
         this.getCommand = getCommand;
+        this.deleteCommand = deleteCommand;
+        
     }
 ////////////////////////////////////////////////////////////////////////////////////////////|  
     
@@ -81,7 +84,27 @@ public abstract class BaseRepository<T> implements IRepository<T> {
     
 //----------------------------------------------------------------------------------------------|  
     
-    public void delete(String id) throws IOException {}
+    @Override
+    public void delete(String id) throws IOException {
+
+    	String response = comunication.sendCommand(deleteCommand + " " + id);
+        
+        ResponseParser parser = new ResponseParser(response);
+        
+        
+        if (parser.isSuccess()) {
+        	
+            System.out.println("-> Eliminado correctamente.");
+            
+        } else {
+        	
+            System.out.println("-> Error al eliminar: " + parser.getMessage());
+       
+        }
+    }
+    
+//----------------------------------------------------------------------------------------------|  
+   
     public List<T> list() throws IOException, ClassNotFoundException { return null; }
     public void update(String id, T model) throws IOException, ClassNotFoundException {}
     public int modelSize() { return 0; }

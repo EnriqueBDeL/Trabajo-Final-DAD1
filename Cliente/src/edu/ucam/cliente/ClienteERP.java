@@ -67,6 +67,12 @@ public class ClienteERP {
 
     
     
+    public void borrarTitulo(String id) throws IOException {
+        tituRepository.delete(id);
+    }
+    
+    
+    
     public void insertarAsignatura(Asignatura asig) throws Exception {
         subjectRepository.add(asig);
     }
@@ -77,6 +83,10 @@ public class ClienteERP {
         return subjectRepository.getModel(id);
     }
 
+    
+    public void borrarAsignatura(String id) throws IOException {
+        subjectRepository.delete(id);
+    }
     
     
     public void insertarMatricula(Matricula m) throws Exception {
@@ -89,5 +99,9 @@ public class ClienteERP {
         return matriculaRepository.getModel(id);
     }
     
+    
+    public void borrarMatricula(String id) throws IOException {
+        matriculaRepository.delete(id);
+    }
     
 }

@@ -9,10 +9,13 @@ import java.util.Hashtable;
 import edu.ucam.servidor.comandos.*;
 import edu.ucam.servidor.comandos.asignatura.ComandoADDASIG;
 import edu.ucam.servidor.comandos.asignatura.ComandoGETASIG;
+import edu.ucam.servidor.comandos.asignatura.ComandoREMOVEASIG;
 import edu.ucam.servidor.comandos.matricula.ComandoADDMATRICULA;
 import edu.ucam.servidor.comandos.matricula.ComandoGETMATRICULA;
+import edu.ucam.servidor.comandos.matricula.ComandoREMOVEMATRICULA;
 import edu.ucam.servidor.comandos.titulo.ComandoADDTIT;
 import edu.ucam.servidor.comandos.titulo.ComandoGETTIT;
+import edu.ucam.servidor.comandos.titulo.ComandoREMOVETIT;
 
 public class HiloServidor implements Runnable {
 
@@ -27,14 +30,19 @@ public class HiloServidor implements Runnable {
         
         comandos.put("ADDTIT", new ComandoADDTIT());
         comandos.put("GETTIT", new ComandoGETTIT());
-        
+        comandos.put("REMOVETIT", new ComandoREMOVETIT());
+
         comandos.put("EXIT", new ComandoEXIT());
         
         comandos.put("ADDASIG", new ComandoADDASIG());
         comandos.put("GETASIG", new ComandoGETASIG());
-        
+        comandos.put("REMOVEASIG", new ComandoREMOVEASIG());
+
         comandos.put("ADDMATRICULA", new ComandoADDMATRICULA());
         comandos.put("GETMATRICULA", new ComandoGETMATRICULA());
+        comandos.put("REMOVEMATRICULA", new ComandoREMOVEMATRICULA());
+        
+        
     }
 
     @Override
