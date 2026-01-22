@@ -104,4 +104,16 @@ public class ClienteERP {
         matriculaRepository.delete(id);
     }
     
+    
+    
+    public java.util.List<Titulacion> listarTitulos() throws Exception {
+        return tituRepository.list();
+    }
+    
+    
+    
+    public java.util.List<Asignatura> listarAsignaturas() throws Exception {
+        return subjectRepository.list();
+    }
+    
 }

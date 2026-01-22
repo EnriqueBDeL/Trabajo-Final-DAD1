@@ -11,6 +11,7 @@ public abstract class BaseRepository<T> implements IRepository<T> {
     protected final String insertCommand;
     protected final String getCommand;
     protected final String deleteCommand;
+    protected final String listCommand;
 
     
 ////////////////////////////////////////////////////////////////////////////////////////////|     
@@ -22,6 +23,7 @@ public abstract class BaseRepository<T> implements IRepository<T> {
         this.insertCommand = insertCommand;
         this.getCommand = getCommand;
         this.deleteCommand = deleteCommand;
+        this.listCommand = listCommand;
         
     }
 ////////////////////////////////////////////////////////////////////////////////////////////|  
@@ -52,7 +54,6 @@ public abstract class BaseRepository<T> implements IRepository<T> {
 //----------------------------------------------------------------------------------------------|  
 
     
-    @SuppressWarnings("unchecked") //Silencia la queja del compilador sobre el "T objeto = (T) channelData.receiveObject(...);"
     @Override
     public T getModel(String id) throws IOException, ClassNotFoundException {
         
@@ -105,7 +106,29 @@ public abstract class BaseRepository<T> implements IRepository<T> {
     
 //----------------------------------------------------------------------------------------------|  
    
-    public List<T> list() throws IOException, ClassNotFoundException { return null; }
-    public void update(String id, T model) throws IOException, ClassNotFoundException {}
+public List<T> list() throws IOException, ClassNotFoundException {
+        
+        String respuesta = comunication.sendCommand(listCommand); 
+        ResponseParser parser = new ResponseParser(respuesta);
+
+        if (parser.isPREOK()) {
+            
+            try { 
+                Thread.sleep(50);
+            } catch (InterruptedException e) {}
+
+            Object objetoRecibido = channelData.receiveObject(parser.getIp(), parser.getPort());
+            
+            comunication.readLine(); 
+            
+            return (List<T>) objetoRecibido;
+        }
+        
+        return null;
+    }
+
+
+
+	public void update(String id, T model) throws IOException, ClassNotFoundException {}
     public int modelSize() { return 0; }
 }

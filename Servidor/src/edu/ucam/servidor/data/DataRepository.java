@@ -1,5 +1,6 @@
 package edu.ucam.servidor.data;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.lang.reflect.Method;
 
@@ -51,5 +52,8 @@ public class DataRepository<T> {
         datos.remove(id);
     }
     
+    public ArrayList<T> getTodos() {
+        return new ArrayList<>(datos.values());
+    }
     
 }

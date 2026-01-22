@@ -1,5 +1,7 @@
 package edu.ucam.servidor;
 
+import java.util.ArrayList;
+
 import edu.ucam.domain.Asignatura;
 import edu.ucam.domain.Matricula;
 import edu.ucam.domain.Titulacion;
@@ -29,5 +31,8 @@ public class ServidorRepository {
     public static void addMatricula(Matricula m) { repoMatriculas.add(m); }
     public static Matricula getMatricula(String id) { return repoMatriculas.get(id); }
     public static void removeMatricula(String id) { repoMatriculas.remove(id); }
+    
+    public static ArrayList<Titulacion> getListaTitulos() { return repoTitulos.getTodos(); }
+    public static ArrayList<Asignatura> getListaAsignaturas() { return repoAsignaturas.getTodos(); }
     
 }

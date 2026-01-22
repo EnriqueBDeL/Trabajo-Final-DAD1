@@ -26,13 +26,19 @@ public class ClientePrincipal {
                
                 while(!salir) {
                     System.out.println("\n--- MENÚ GESTIÓN UNIVERSIDAD ---");
-                    System.out.println("1. Añadir Título (ADDTIT)");
-                    System.out.println("2. Consultar Título (GETTIT)");
-                    System.out.println("3. Añadir Asignatura (ADDASIG)");
-                    System.out.println("4. Consultar Asignatura (GETASIG)");
-                    System.out.println("5. Añadir Matrícula (ADDMATRICULA)");
-                    System.out.println("6. Consultar Matrícula (GETMATRICULA)");
-                    System.out.println("0. Salir (EXIT)");
+                    System.out.println("1. Añadir Título");
+                    System.out.println("2. Consultar Título");
+                    System.out.println("3. Añadir Asignatura");
+                    System.out.println("4. Consultar Asignatura");
+                    System.out.println("5. Añadir Matrícula");
+                    System.out.println("6. Consultar Matrícula");
+                    System.out.println("7. Borrar Título");
+                    System.out.println("8. Borrar Asignatura");
+                    System.out.println("9. Borrar Matrícula");
+                    System.out.println("10. Listar Títulos");
+                    System.out.println("11. Listar Asignaturas");
+                    System.out.println("12. Listar Matrículas");
+                    System.out.println("0. Salir");
                     System.out.print("Seleccione opción: ");
                     String opcion = scanner.nextLine();
                     
@@ -96,6 +102,45 @@ public class ClientePrincipal {
                             System.out.print("ID Asignatura a borrar: ");
                             cliente.borrarAsignatura(scanner.nextLine());
                             break;              
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%|                        
+                        case "9":
+                            System.out.print("ID Matrícula a borrar: ");
+                            cliente.borrarMatricula(scanner.nextLine());
+                            break;
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%|                        
+                        case "10":
+                        	System.out.println("\n--- LISTADO DE TÍTULOS ---");
+                            try {
+                                var lista = cliente.listarTitulos();
+                                
+                                if (lista != null && !lista.isEmpty()) {
+                                    for (Titulacion tList : lista) {
+                                        System.out.println("- [" + tList.getId() + "] " + tList.getNombre());
+                                    }
+                                } else {
+                                    System.out.println("No hay títulos registrados.");
+                                }
+                            } catch (Exception e) { 
+                                System.out.println("Error al listar: " + e.getMessage()); 
+                            }
+                            break;
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%|                        
+                        case "11":
+                        	System.out.println("\n--- LISTADO DE ASIGNATURAS ---");
+                            try {
+                                var lista = cliente.listarAsignaturas();
+                                
+                                if (lista != null && !lista.isEmpty()) {
+                                    for (Asignatura aList : lista) {
+                                        System.out.println("- [" + aList.getId() + "] " + aList.getNombre());
+                                    }
+                                } else {
+                                    System.out.println("No hay asignaturas registradas.");
+                                }
+                            } catch (Exception e) { 
+                                System.out.println("Error al listar: " + e.getMessage()); 
+                            }
+                            break;
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%|                        
                         case "0":
                             cliente.cerrarSesion();
