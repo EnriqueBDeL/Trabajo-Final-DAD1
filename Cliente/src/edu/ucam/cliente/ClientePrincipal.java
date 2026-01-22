@@ -50,6 +50,8 @@ public class ClientePrincipal {
                     System.out.println("14. Desvincular Asignatura de un Título");
                     System.out.println("15. Total de Títulos");
                     System.out.println("16. Ver número de clientes conectados al servidor.");
+                    System.out.println("17. Modificar Título");
+                    System.out.println("18. Modificar Matrícula");
                     System.out.println("0. Salir");
                     System.out.print("Seleccione opción: ");
                     String opcion = scanner.nextLine();
@@ -204,6 +206,40 @@ public class ClientePrincipal {
                                 System.out.println("Error al obtener sesiones: " + e.getMessage());
                             }
                             break;
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%|                            
+                        case "17":
+                          
+                        	System.out.println("\n--- MODIFICAR TÍTULO ---");
+                            System.out.print("ID del Título a modificar: "); 
+                            String idTM = scanner.nextLine();
+                            
+                            Titulacion tExistente = cliente.obtenerTitulo(idTM);
+                           
+                            if (tExistente != null) {
+                                System.out.println("Nombre actual: " + tExistente.getNombre());
+                                System.out.print("Nuevo Nombre: "); 
+                                String nuevoNom = scanner.nextLine();
+                                cliente.actualizarTitulo(idTM, nuevoNom);
+                            } else {
+                                System.out.println("El título no existe, no se puede modificar.");
+                            }
+                            
+                            break;
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%|                            
+                        case "18":
+                         
+                        	System.out.println("\n--- MODIFICAR MATRÍCULA ---");
+                            System.out.print("ID de Matrícula a modificar: "); 
+                           
+                            String idMM = scanner.nextLine();
+                            
+                            Matricula mNueva = new Matricula();
+                           
+                            mNueva.setId(idMM); 
+                            System.out.println("Enviando actualización...");
+                            cliente.actualizarMatricula(idMM, mNueva);
+                           
+                            break;               
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%|                            
                         case "0":
                             cliente.cerrarSesion();

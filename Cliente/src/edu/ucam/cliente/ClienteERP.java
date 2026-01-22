@@ -158,4 +158,23 @@ public class ClienteERP {
     }
     
     
+    public void actualizarTitulo(String id, String nuevoNombre) throws Exception {
+        
+    	Titulacion t = new Titulacion();
+        
+        t.setId(id);
+        t.setNombre(nuevoNombre);
+        
+        tituRepository.update(id, t);
+        
+    }
+
+    
+    
+    public void actualizarMatricula(String id, Matricula nuevaMatricula) throws Exception {
+
+    	nuevaMatricula.setId(id);
+        matriculaRepository.update(id, nuevaMatricula);
+    }
+    
 }

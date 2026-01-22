@@ -13,6 +13,7 @@ public abstract class BaseRepository<T> implements IRepository<T> {
     protected final String deleteCommand;
     protected final String listCommand;
     protected final String countCommand;
+    protected final String updateCommand;
 
 
     
@@ -27,6 +28,7 @@ public abstract class BaseRepository<T> implements IRepository<T> {
         this.deleteCommand = deleteCommand;
         this.listCommand = listCommand;
         this.countCommand = countCommand;
+        this.updateCommand = updateCommand;
         
     }
 ////////////////////////////////////////////////////////////////////////////////////////////|  
@@ -150,7 +152,49 @@ public List<T> list() throws IOException, ClassNotFoundException {
 	    }
 	    return 0; 
 	}
+	
+	
+//----------------------------------------------------------------------------------------------|  
 
-	public void update(String id, T model) throws IOException, ClassNotFoundException {}
+	
+	@Override
+    public void update(String id, T model) throws IOException, ClassNotFoundException {
 
+		
+		String response = comunication.sendCommand(updateCommand + " " + id);
+		
+		
+        ResponseParser parser = new ResponseParser(response);
+        
+        
+        if (parser.isPREOK()) {
+        	
+            try { 
+            	
+            	Thread.sleep(50); 
+            	
+            } catch (InterruptedException e) {
+            	
+            	
+            }
+            
+           
+            channelData.sendObject(parser.getIp(), parser.getPort(), model);
+            
+            String confirmacion = comunication.readLine();
+            ResponseParser parserFinal = new ResponseParser(confirmacion);
+            
+            
+            if (parserFinal.isSuccess()) {
+                System.out.println("-> Actualizado correctamente.");
+            } else {
+                System.out.println("-> Error del servidor al actualizar.");
+            }
+            
+        } else {
+            System.out.println("-> Error: " + parser.getMessage());
+        }
+    }
+	
+    
 }
