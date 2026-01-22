@@ -37,7 +37,6 @@ public class ClientePrincipal {
                     System.out.println("9. Borrar Matrícula");
                     System.out.println("10. Listar Títulos");
                     System.out.println("11. Listar Asignaturas");
-                    System.out.println("12. Listar Matrículas");
                     System.out.println("0. Salir");
                     System.out.print("Seleccione opción: ");
                     String opcion = scanner.nextLine();
