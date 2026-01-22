@@ -56,4 +56,12 @@ public class DataRepository<T> {
         return new ArrayList<>(datos.values());
     }
     
+    
+    
+    public int getSize() { //Para contar usuarios. 
+        return datos.size();
+    }
+    
+    
+    
 }

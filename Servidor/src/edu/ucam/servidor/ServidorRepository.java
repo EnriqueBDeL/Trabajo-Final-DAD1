@@ -92,4 +92,10 @@ public class ServidorRepository {
     
     
     
+    public static int contarTitulos() {
+        return repoTitulos.getSize();
+    }
+    
+    
+    
 }

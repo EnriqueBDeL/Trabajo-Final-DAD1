@@ -15,7 +15,8 @@ import edu.ucam.domain.Titulacion;
 import edu.ucam.domain.Matricula;
 import edu.ucam.cliente.service.SubjectRepository;
 import edu.ucam.cliente.service.TituRepository;
-import edu.ucam.cliente.service.MatriculaRepository; 
+import edu.ucam.cliente.service.MatriculaRepository;
+import edu.ucam.cliente.service.ResponseParser; 
 
 
 
@@ -68,8 +69,14 @@ public class ClienteERP {
 
     
     
+    
     public void borrarTitulo(String id) throws IOException {
         tituRepository.delete(id);
+    }
+    
+    
+    public int obtenerTotalTitulos() {
+        return tituRepository.modelSize();
     }
     
     
@@ -134,6 +141,20 @@ public class ClienteERP {
     
     public void desvincularAsignatura(String idAsig, String idTit) throws IOException {
         ((SubjectRepository)subjectRepository).removeAsignaturaFromTitulo(idAsig, idTit);
+    }
+    
+    
+    
+    
+    public int obtenerSesionesActivas() throws IOException {
+    
+    	String respuesta = comunication.sendCommand("SESIONES");
+     
+        ResponseParser parser = new ResponseParser(respuesta);
+        if (parser.isSuccess()) {
+            return Integer.parseInt(parser.getMessage().trim());
+        }
+        return 0;
     }
     
     

@@ -17,11 +17,14 @@ import edu.ucam.servidor.comandos.matricula.ComandoADDMATRICULA;
 import edu.ucam.servidor.comandos.matricula.ComandoGETMATRICULA;
 import edu.ucam.servidor.comandos.matricula.ComandoREMOVEMATRICULA;
 import edu.ucam.servidor.comandos.titulo.ComandoADDTIT;
+import edu.ucam.servidor.comandos.titulo.ComandoCOUNTTIT;
 import edu.ucam.servidor.comandos.titulo.ComandoGETTIT;
 import edu.ucam.servidor.comandos.titulo.ComandoREMOVETIT;
 
 public class HiloServidor implements Runnable {
 
+	public static int clientesConectados = 0;
+	
     private Socket socket;
     private Hashtable<String, Comando> comandos = new Hashtable<>();
 
@@ -30,10 +33,12 @@ public class HiloServidor implements Runnable {
         
         comandos.put("USER", new ComandoUSER());
         comandos.put("PASS", new ComandoPASS());
+        comandos.put("SESIONES", new ComandoSESIONES());
         
         comandos.put("ADDTIT", new ComandoADDTIT());
         comandos.put("GETTIT", new ComandoGETTIT());
         comandos.put("REMOVETIT", new ComandoREMOVETIT());
+        comandos.put("COUNTTIT", new ComandoCOUNTTIT());
 
         comandos.put("EXIT", new ComandoEXIT());
         
@@ -54,6 +59,9 @@ public class HiloServidor implements Runnable {
 
     @Override
     public void run() {
+    	
+    	clientesConectados++;
+    	
             try (
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true)
@@ -75,11 +83,24 @@ public class HiloServidor implements Runnable {
                     }
                 }
             } catch (java.net.SocketException e) {
+            	
                 System.out.println("El cliente se ha desconectado abruptamente.");
+                
             } catch (IOException e) {
+            	
                 e.printStackTrace();
+                
             } finally {
-                 try { if(socket != null) socket.close(); } catch (IOException e) {}
+            	
+            	clientesConectados--;
+            	
+                 try { 
+                	 
+                	 if(socket != null) socket.close(); 
+                	 
+                 } catch (IOException e) {
+                	 
+                 }
            }
       }
     	

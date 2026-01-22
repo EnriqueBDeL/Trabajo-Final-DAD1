@@ -12,6 +12,8 @@ public abstract class BaseRepository<T> implements IRepository<T> {
     protected final String getCommand;
     protected final String deleteCommand;
     protected final String listCommand;
+    protected final String countCommand;
+
 
     
 ////////////////////////////////////////////////////////////////////////////////////////////|     
@@ -24,6 +26,7 @@ public abstract class BaseRepository<T> implements IRepository<T> {
         this.getCommand = getCommand;
         this.deleteCommand = deleteCommand;
         this.listCommand = listCommand;
+        this.countCommand = countCommand;
         
     }
 ////////////////////////////////////////////////////////////////////////////////////////////|  
@@ -127,8 +130,27 @@ public List<T> list() throws IOException, ClassNotFoundException {
         return null;
     }
 
+//----------------------------------------------------------------------------------------------|  
 
+
+	@Override
+	public int modelSize() {
+
+		try {
+	        String respuesta = comunication.sendCommand(countCommand);
+
+	        ResponseParser parser = new ResponseParser(respuesta);
+	        
+	        if (parser.isSuccess()) {
+	        
+	            return Integer.parseInt(parser.getMessage().trim());
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return 0; 
+	}
 
 	public void update(String id, T model) throws IOException, ClassNotFoundException {}
-    public int modelSize() { return 0; }
+
 }

@@ -48,6 +48,8 @@ public class ClientePrincipal {
                     System.out.println("12. Vincular Asignatura a un Título");
                     System.out.println("13. Ver Asignaturas de un Título");
                     System.out.println("14. Desvincular Asignatura de un Título");
+                    System.out.println("15. Total de Títulos");
+                    System.out.println("16. Ver número de clientes conectados al servidor.");
                     System.out.println("0. Salir");
                     System.out.print("Seleccione opción: ");
                     String opcion = scanner.nextLine();
@@ -178,6 +180,29 @@ public class ClientePrincipal {
                             System.out.print("ID Asignatura a quitar: "); String idaq = scanner.nextLine();
                             System.out.print("ID Título origen: "); String idtq = scanner.nextLine();
                             cliente.desvincularAsignatura(idaq, idtq);
+                            break;
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%|                            
+                        case "15": 
+                        	
+                        	System.out.println("\n--- TOTAL DE TÍTULOS ---");
+                         
+                        	try {
+                               int total = cliente.obtenerTotalTitulos();
+                               System.out.println("-> Hay " + total + " títulos registrados en el sistema.");
+                            } catch (Exception e) {
+                                System.out.println("Error al contar títulos: " + e.getMessage());
+                            }
+                            
+                            break;
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%|                            
+                        case "16":
+                            System.out.println("\n--- USUARIOS CONECTADOS ---");
+                            try {
+                               int conectados = cliente.obtenerSesionesActivas();
+                               System.out.println("-> Usuarios activos ahora mismo: " + conectados);
+                            } catch (Exception e) {
+                                System.out.println("Error al obtener sesiones: " + e.getMessage());
+                            }
                             break;
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%|                            
                         case "0":
