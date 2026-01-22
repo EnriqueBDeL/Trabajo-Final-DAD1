@@ -141,6 +141,27 @@ public class ClientePrincipal {
                             }
                             break;
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%|                        
+                        case "13":
+                            System.out.println("\n--- VINCULAR ASIGNATURA A TÍTULO ---");
+                            System.out.print("ID Asignatura: "); String ida = scanner.nextLine();
+                            System.out.print("ID Título: "); String idt = scanner.nextLine();
+                            cliente.vincularAsignatura(ida, idt);
+                            break;
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%|                        
+                        case "14":
+                            System.out.println("\n--- VER ASIGNATURAS DE UN TÍTULO ---");
+                            System.out.print("ID Título: "); 
+                            var listaRel = cliente.listarAsignaturasDeTitulo(scanner.nextLine());
+                            
+                            if (listaRel != null && !listaRel.isEmpty()) {
+                                for (Asignatura aRel : listaRel) {
+                                    System.out.println("- " + aRel.getNombre());
+                                }
+                            } else {
+                                System.out.println("Este título no tiene asignaturas o no existe.");
+                            }
+                            break;
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%|                            
                         case "0":
                             cliente.cerrarSesion();
                             salir = true;

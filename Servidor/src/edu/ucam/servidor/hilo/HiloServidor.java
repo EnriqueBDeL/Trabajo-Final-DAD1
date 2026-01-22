@@ -8,7 +8,9 @@ import java.net.Socket;
 import java.util.Hashtable;
 import edu.ucam.servidor.comandos.*;
 import edu.ucam.servidor.comandos.asignatura.ComandoADDASIG;
+import edu.ucam.servidor.comandos.asignatura.ComandoADDASIG2TIT;
 import edu.ucam.servidor.comandos.asignatura.ComandoGETASIG;
+import edu.ucam.servidor.comandos.asignatura.ComandoLISTASIGFROMTIT;
 import edu.ucam.servidor.comandos.asignatura.ComandoREMOVEASIG;
 import edu.ucam.servidor.comandos.matricula.ComandoADDMATRICULA;
 import edu.ucam.servidor.comandos.matricula.ComandoGETMATRICULA;
@@ -37,7 +39,10 @@ public class HiloServidor implements Runnable {
         comandos.put("ADDASIG", new ComandoADDASIG());
         comandos.put("GETASIG", new ComandoGETASIG());
         comandos.put("REMOVEASIG", new ComandoREMOVEASIG());
-
+        comandos.put("ADDASIG2TIT", new ComandoADDASIG2TIT());
+        comandos.put("LISTASIGFROMTIT", new ComandoLISTASIGFROMTIT());
+        
+        
         comandos.put("ADDMATRICULA", new ComandoADDMATRICULA());
         comandos.put("GETMATRICULA", new ComandoGETMATRICULA());
         comandos.put("REMOVEMATRICULA", new ComandoREMOVEMATRICULA());

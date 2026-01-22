@@ -1,6 +1,7 @@
 package edu.ucam.cliente;
 
 import java.io.IOException;
+import java.util.List;
 
 import edu.ucam.cliente.interfaces.IAutentication;
 import edu.ucam.cliente.interfaces.IComunicationServer;
@@ -106,14 +107,25 @@ public class ClienteERP {
     
     
     
-    public java.util.List<Titulacion> listarTitulos() throws Exception {
+    public List<Titulacion> listarTitulos() throws Exception {
         return tituRepository.list();
     }
     
     
     
-    public java.util.List<Asignatura> listarAsignaturas() throws Exception {
+    public List<Asignatura> listarAsignaturas() throws Exception {
         return subjectRepository.list();
+    }
+    
+    
+    
+    
+    public void vincularAsignatura(String idAsig, String idTit) throws IOException {
+        ((SubjectRepository)subjectRepository).addAsignaturaToTitulo(idAsig, idTit);
+    }
+
+    public List<Asignatura> listarAsignaturasDeTitulo(String idTit) throws Exception {
+        return ((SubjectRepository)subjectRepository).listFromTitulo(idTit);
     }
     
 }
