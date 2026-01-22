@@ -11,19 +11,27 @@ public class ClientePrincipal {
         Scanner scanner = new Scanner(System.in);
         
         try {
+        	
             ClienteERP cliente = new ClienteERP();
+            
+            
             System.out.println("--- CONECTADO AL SERVIDOR ---");
+            
             
             System.out.print("Usuario: ");
             String usuario = scanner.nextLine();
             System.out.print("Password: ");
             String password = scanner.nextLine();
             
+            
             if(cliente.autenticar(usuario, password)) {
                 System.out.println("¡Login correcto! Bienvenido " + usuario);
 
+                
                 boolean salir = false;
                
+                
+                
                 while(!salir) {
                     System.out.println("\n--- MENÚ GESTIÓN UNIVERSIDAD ---");
                     System.out.println("1. Añadir Título");
@@ -37,6 +45,9 @@ public class ClientePrincipal {
                     System.out.println("9. Borrar Matrícula");
                     System.out.println("10. Listar Títulos");
                     System.out.println("11. Listar Asignaturas");
+                    System.out.println("12. Vincular Asignatura a un Título");
+                    System.out.println("13. Ver Asignaturas de un Título");
+                    System.out.println("14. Desvincular Asignatura de un Título");
                     System.out.println("0. Salir");
                     System.out.print("Seleccione opción: ");
                     String opcion = scanner.nextLine();
@@ -141,14 +152,14 @@ public class ClientePrincipal {
                             }
                             break;
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%|                        
-                        case "13":
+                        case "12":
                             System.out.println("\n--- VINCULAR ASIGNATURA A TÍTULO ---");
                             System.out.print("ID Asignatura: "); String ida = scanner.nextLine();
                             System.out.print("ID Título: "); String idt = scanner.nextLine();
                             cliente.vincularAsignatura(ida, idt);
                             break;
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%|                        
-                        case "14":
+                        case "13":
                             System.out.println("\n--- VER ASIGNATURAS DE UN TÍTULO ---");
                             System.out.print("ID Título: "); 
                             var listaRel = cliente.listarAsignaturasDeTitulo(scanner.nextLine());
@@ -160,6 +171,13 @@ public class ClientePrincipal {
                             } else {
                                 System.out.println("Este título no tiene asignaturas o no existe.");
                             }
+                            break;
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%|                            
+                        case "14":
+                            System.out.println("\n--- DESVINCULAR ASIGNATURA DE TÍTULO ---");
+                            System.out.print("ID Asignatura a quitar: "); String idaq = scanner.nextLine();
+                            System.out.print("ID Título origen: "); String idtq = scanner.nextLine();
+                            cliente.desvincularAsignatura(idaq, idtq);
                             break;
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%|                            
                         case "0":

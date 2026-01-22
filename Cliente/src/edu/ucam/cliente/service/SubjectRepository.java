@@ -100,6 +100,25 @@ public class SubjectRepository extends BaseRepository<Asignatura> {
 	
 	
 	
+//----------------------------------------------------------------------------|
+
+	public void removeAsignaturaFromTitulo(String idAsig, String idTit) throws IOException {
+       
+		String comando = "REMOVEASIGFROMTIT " + idAsig + " " + idTit;
+        String respuesta = comunication.sendCommand(comando);
+        
+        
+        
+        ResponseParser parser = new ResponseParser(respuesta);
+        
+        
+        if (parser.isSuccess()) {
+            System.out.println("-> Desvinculada correctamente.");
+        } else {
+            System.out.println("-> Error al desvincular: " + parser.getMessage());
+        }
+           
+    }
 	
 	
 	

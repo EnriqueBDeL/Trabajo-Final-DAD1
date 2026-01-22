@@ -124,8 +124,17 @@ public class ClienteERP {
         ((SubjectRepository)subjectRepository).addAsignaturaToTitulo(idAsig, idTit);
     }
 
+    
+    
     public List<Asignatura> listarAsignaturasDeTitulo(String idTit) throws Exception {
         return ((SubjectRepository)subjectRepository).listFromTitulo(idTit);
     }
+    
+    
+    
+    public void desvincularAsignatura(String idAsig, String idTit) throws IOException {
+        ((SubjectRepository)subjectRepository).removeAsignaturaFromTitulo(idAsig, idTit);
+    }
+    
     
 }

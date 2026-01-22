@@ -12,6 +12,7 @@ import edu.ucam.servidor.comandos.asignatura.ComandoADDASIG2TIT;
 import edu.ucam.servidor.comandos.asignatura.ComandoGETASIG;
 import edu.ucam.servidor.comandos.asignatura.ComandoLISTASIGFROMTIT;
 import edu.ucam.servidor.comandos.asignatura.ComandoREMOVEASIG;
+import edu.ucam.servidor.comandos.asignatura.ComandoREMOVEASIGFROMTIT;
 import edu.ucam.servidor.comandos.matricula.ComandoADDMATRICULA;
 import edu.ucam.servidor.comandos.matricula.ComandoGETMATRICULA;
 import edu.ucam.servidor.comandos.matricula.ComandoREMOVEMATRICULA;
@@ -41,6 +42,7 @@ public class HiloServidor implements Runnable {
         comandos.put("REMOVEASIG", new ComandoREMOVEASIG());
         comandos.put("ADDASIG2TIT", new ComandoADDASIG2TIT());
         comandos.put("LISTASIGFROMTIT", new ComandoLISTASIGFROMTIT());
+        comandos.put("REMOVEASIGFROMTIT", new ComandoREMOVEASIGFROMTIT());
         
         
         comandos.put("ADDMATRICULA", new ComandoADDMATRICULA());

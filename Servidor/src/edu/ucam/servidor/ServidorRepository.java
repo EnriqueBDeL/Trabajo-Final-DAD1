@@ -73,6 +73,19 @@ public class ServidorRepository {
     
     
     
+    public static boolean eliminarAsignaturaDeTitulo(String idAsignatura, String idTitulo) {
+       
+    	if (asignaturasPorTitulo.containsKey(idTitulo)) {
+    		
+            ArrayList<String> lista = asignaturasPorTitulo.get(idTitulo);
+          
+            return lista.remove(idAsignatura);
+        }
+    	
+        return false;
+    }
+    
+    
     public static void addMatricula(Matricula m) { repoMatriculas.add(m); }
     public static Matricula getMatricula(String id) { return repoMatriculas.get(id); }
     public static void removeMatricula(String id) { repoMatriculas.remove(id); }
