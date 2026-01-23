@@ -6,195 +6,122 @@ import edu.ucam.cliente.interfaces.*;
 
 public abstract class BaseRepository<T> implements IRepository<T> {
 
-    protected final IComunicationServer comunication;
-    protected final IChannelData channelData;
-    protected final String insertCommand;
-    protected final String getCommand;
-    protected final String deleteCommand;
-    protected final String listCommand;
-    protected final String countCommand;
-    protected final String updateCommand;
-
-
+    protected IComunicationServer comunication;
+    protected IChannelData channelData;
     
-////////////////////////////////////////////////////////////////////////////////////////////|     
+    protected String addCommand;
+    protected String updateCommand;
+    protected String removeCommand;
+    protected String getCommand;
+    protected String listCommand;
+    protected String countCommand;
+
     public BaseRepository(IComunicationServer comunication, IChannelData channelData,
             String insertCommand, String deleteCommand, String getCommand, 
             String listCommand, String countCommand, String updateCommand) {
         this.comunication = comunication;
         this.channelData = channelData;
-        this.insertCommand = insertCommand;
+        this.addCommand = insertCommand;
+        this.removeCommand = deleteCommand;
         this.getCommand = getCommand;
-        this.deleteCommand = deleteCommand;
         this.listCommand = listCommand;
         this.countCommand = countCommand;
         this.updateCommand = updateCommand;
-        
     }
-////////////////////////////////////////////////////////////////////////////////////////////|  
-    
-    
-//----------------------------------------------------------------------------------------------|  
 
     @Override
     public void add(T model) throws IOException, ClassNotFoundException {
-     
-    	String response = comunication.sendCommand(insertCommand);
+        String response = comunication.sendCommand(addCommand);
+        ResponseParser parser = new ResponseParser(response);
         
-    	ResponseParser parser = new ResponseParser(response);
-
-       
-    	if (parser.isPREOK()) {
-        	
-            System.out.println("Servidor listo en " + parser.getIp() + ":" + parser.getPort());
+        if (parser.isPREOK()) {
+            try { Thread.sleep(50); } catch (Exception e) {}
             channelData.sendObject(parser.getIp(), parser.getPort(), model);
-            
-            String confirmacion = comunication.readLine(); 
-            
-        } else {
-            throw new IOException("Error esperando PREOK: " + parser.getMessage());
+            comunication.readLine(); 
         }
     }
 
-//----------------------------------------------------------------------------------------------|  
 
     
     @Override
-    public T getModel(String id) throws IOException, ClassNotFoundException {
-        
-    	String response = comunication.sendCommand(getCommand + " " + id);
-        
-    	ResponseParser parser = new ResponseParser(response);
+    public void update(String id, T model) throws IOException, ClassNotFoundException {
+        String response = comunication.sendCommand(updateCommand + " " + id);
+        ResponseParser parser = new ResponseParser(response);
 
-        
-    	
-    	if (parser.isPREOK()) {
-        
-    		try { 
-    			
-    			Thread.sleep(50); 
-    			
-    			} catch (InterruptedException e) {
-    				
-    				
-    			} 
-
-            T objeto = (T) channelData.receiveObject(parser.getIp(), parser.getPort());
-            
-            String confirmacion = comunication.readLine(); 
-            
-            return objeto;
+        if (parser.isPREOK()) {
+            try { Thread.sleep(50); } catch (Exception e) {}
+            channelData.sendObject(parser.getIp(), parser.getPort(), model);
+            comunication.readLine();
         }
-        return null;
     }
-    
-//----------------------------------------------------------------------------------------------|  
+
+
     
     @Override
     public void delete(String id) throws IOException {
-
-    	String response = comunication.sendCommand(deleteCommand + " " + id);
-        
-        ResponseParser parser = new ResponseParser(response);
-        
-        
-        if (parser.isSuccess()) {
-        	
-            System.out.println("-> Eliminado correctamente.");
-            
-        } else {
-        	
-            System.out.println("-> Error al eliminar: " + parser.getMessage());
-       
-        }
+        comunication.sendCommand(removeCommand + " " + id);
     }
     
-//----------------------------------------------------------------------------------------------|  
-   
-public List<T> list() throws IOException, ClassNotFoundException {
-        
-        String respuesta = comunication.sendCommand(listCommand); 
-        ResponseParser parser = new ResponseParser(respuesta);
+    @Override
+    public void remove(String id) throws IOException {
+        delete(id); 
+    }
+
+    
+    
+    @Override
+    public T get(String id) throws IOException, ClassNotFoundException {
+        String response = comunication.sendCommand(getCommand + " " + id);
+        ResponseParser parser = new ResponseParser(response);
 
         if (parser.isPREOK()) {
-            
-            try { 
-                Thread.sleep(50);
-            } catch (InterruptedException e) {}
-
-            Object objetoRecibido = channelData.receiveObject(parser.getIp(), parser.getPort());
-            
-            comunication.readLine(); 
-            
-            return (List<T>) objetoRecibido;
+            try { Thread.sleep(50); } catch (Exception e) {}
+            Object obj = channelData.receiveObject(parser.getIp(), parser.getPort());
+            comunication.readLine();
+            return (T) obj;
         }
-        
         return null;
     }
 
-//----------------------------------------------------------------------------------------------|  
-
-
-	@Override
-	public int modelSize() {
-
-		try {
-	        String respuesta = comunication.sendCommand(countCommand);
-
-	        ResponseParser parser = new ResponseParser(respuesta);
-	        
-	        if (parser.isSuccess()) {
-	        
-	            return Integer.parseInt(parser.getMessage().trim());
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    return 0; 
-	}
-	
-	
-//----------------------------------------------------------------------------------------------|  
-
-	
-	@Override
-    public void update(String id, T model) throws IOException, ClassNotFoundException {
-
-		
-		String response = comunication.sendCommand(updateCommand + " " + id);
-		
-		
-        ResponseParser parser = new ResponseParser(response);
-        
-        
-        if (parser.isPREOK()) {
-        	
-            try { 
-            	
-            	Thread.sleep(50); 
-            	
-            } catch (InterruptedException e) {
-            	
-            	
-            }
-            
-           
-            channelData.sendObject(parser.getIp(), parser.getPort(), model);
-            
-            String confirmacion = comunication.readLine();
-            ResponseParser parserFinal = new ResponseParser(confirmacion);
-            
-            
-            if (parserFinal.isSuccess()) {
-                System.out.println("-> Actualizado correctamente.");
-            } else {
-                System.out.println("-> Error del servidor al actualizar.");
-            }
-            
-        } else {
-            System.out.println("-> Error: " + parser.getMessage());
-        }
+    @Override
+    public T getModel(String id) throws IOException, ClassNotFoundException {
+        return get(id);
     }
-	
+
+
+    @Override
+
+    public List<T> list() throws IOException, ClassNotFoundException {
+        String response = comunication.sendCommand(listCommand);
+        ResponseParser parser = new ResponseParser(response);
+
+        if (parser.isPREOK()) {
+            try { Thread.sleep(50); } catch (Exception e) {}
+            Object obj = channelData.receiveObject(parser.getIp(), parser.getPort());
+            comunication.readLine(); 
+            return (List<T>) obj;
+        }
+        return null;
+    }
+
     
+    
+    @Override
+    public List<T> getAll() throws IOException, ClassNotFoundException {
+        return list(); 
+    }
+    
+
+    @Override
+    public int modelSize() {
+        if (countCommand == null) return 0;
+        try {
+            String respuesta = comunication.sendCommand(countCommand);
+            ResponseParser parser = new ResponseParser(respuesta);
+            if (parser.isSuccess()) {
+                return Integer.parseInt(parser.getMessage().trim());
+            }
+        } catch (Exception e) {}
+        return 0;
+    }
 }

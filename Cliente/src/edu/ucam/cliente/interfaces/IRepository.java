@@ -11,4 +11,7 @@ public interface IRepository <T>{
 	public void update(String id, T model) throws IOException, ClassNotFoundException;
 	public T getModel(String id) throws IOException, ClassNotFoundException;
 	public int modelSize();
+	void remove(String id) throws IOException;
+	T get(String id) throws IOException, ClassNotFoundException;
+	List<T> getAll() throws IOException, ClassNotFoundException;
 }

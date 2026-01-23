@@ -12,29 +12,27 @@ public class ComandoADDTIT extends Comando {
 
     @Override
     public void ejecutar(Socket socket, PrintWriter out, String[] partes) {
-        ServerSocket serverSocketDatos = null;
-        Socket socketDatos = null;
-
-        try {
-            serverSocketDatos = new ServerSocket(0);
-            out.println("PREOK " + partes[0] + " 200 " + socket.getLocalAddress().getHostAddress() + " " + serverSocketDatos.getLocalPort());
-
-            socketDatos = serverSocketDatos.accept();
-            ObjectInputStream ois = new ObjectInputStream(socketDatos.getInputStream());
-            Titulacion t = (Titulacion) ois.readObject();
-
-            ServidorRepository.addTitulo(t);
+        try (ServerSocket serverDatos = new ServerSocket(0)) {
+            String ip = socket.getLocalAddress().getHostAddress();
+            int puerto = serverDatos.getLocalPort();
             
-            out.println("OK " + partes[0] + " 201 Transferencia terminada");
-            ois.close();
+            out.println("PREOK " + partes[0] + " 200 " + ip + " " + puerto);
 
+            Socket socketDatos = serverDatos.accept();
+            ObjectInputStream ois = new ObjectInputStream(socketDatos.getInputStream());
+            
+            Titulacion titulo = (Titulacion) ois.readObject();
+            
+            // GUARDAMOS EN EL REPOSITORIO
+            ServidorRepository.addTitulo(titulo);
+            
+            out.println("OK " + partes[0] + " 200 Titulo guardado");
+            
+            ois.close();
+            socketDatos.close();
         } catch (Exception e) {
-            out.println("FAILED " + partes[0] + " 500 Error");
-        } finally {
-            try {
-                if (socketDatos != null) socketDatos.close();
-                if (serverSocketDatos != null) serverSocketDatos.close();
-            } catch (Exception ex) {}
+            e.printStackTrace();
+            out.println("FAILED " + partes[0] + " 500 Error al añadir");
         }
     }
 }

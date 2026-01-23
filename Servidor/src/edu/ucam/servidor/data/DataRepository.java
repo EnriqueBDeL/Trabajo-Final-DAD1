@@ -1,6 +1,7 @@
 package edu.ucam.servidor.data;
 
 import java.util.Hashtable;
+import java.util.ArrayList;
 import java.lang.reflect.Method;
 
 public class DataRepository<T> {
@@ -26,5 +27,17 @@ public class DataRepository<T> {
 
     public boolean existe(String id) {
         return datos.containsKey(id);
+    }
+
+    public void remove(String id) {
+        datos.remove(id);
+    }
+
+    public ArrayList<T> getTodos() {
+        return new ArrayList<>(datos.values());
+    }
+
+    public int getSize() {
+        return datos.size();
     }
 }
