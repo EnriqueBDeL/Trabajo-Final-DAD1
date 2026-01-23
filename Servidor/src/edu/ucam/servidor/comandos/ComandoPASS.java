@@ -16,7 +16,7 @@ public class ComandoPASS extends Comando {
         String pass = partes[2];
         
         if ("admin".equals(pass)) {
-
+            hilo.setAutenticado(true);
         	out.println("OK " + partes[0] + " 200 Welcome admin");
         } else {
             out.println("FAILED " + partes[0] + " 401 Password incorrecta");
