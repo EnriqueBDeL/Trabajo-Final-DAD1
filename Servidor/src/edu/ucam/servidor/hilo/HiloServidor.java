@@ -7,21 +7,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Hashtable;
 import edu.ucam.servidor.comandos.*;
-import edu.ucam.servidor.comandos.asignatura.ComandoADDASIG;
-import edu.ucam.servidor.comandos.asignatura.ComandoADDASIG2TIT;
-import edu.ucam.servidor.comandos.asignatura.ComandoGETASIG;
-import edu.ucam.servidor.comandos.asignatura.ComandoLISTASIGFROMTIT;
-import edu.ucam.servidor.comandos.asignatura.ComandoREMOVEASIG;
-import edu.ucam.servidor.comandos.asignatura.ComandoREMOVEASIGFROMTIT;
-import edu.ucam.servidor.comandos.matricula.ComandoADDMATRICULA;
-import edu.ucam.servidor.comandos.matricula.ComandoGETMATRICULA;
-import edu.ucam.servidor.comandos.matricula.ComandoREMOVEMATRICULA;
-import edu.ucam.servidor.comandos.matricula.ComandoUPDATEMATRICULA;
-import edu.ucam.servidor.comandos.titulo.ComandoADDTIT;
-import edu.ucam.servidor.comandos.titulo.ComandoCOUNTTIT;
-import edu.ucam.servidor.comandos.titulo.ComandoGETTIT;
-import edu.ucam.servidor.comandos.titulo.ComandoREMOVETIT;
-import edu.ucam.servidor.comandos.titulo.ComandoUPDATETIT;
+import edu.ucam.servidor.comandos.asignatura.*;
+import edu.ucam.servidor.comandos.titulo.*;
+import edu.ucam.servidor.comandos.matricula.*;
 
 public class HiloServidor implements Runnable {
 
@@ -52,6 +40,7 @@ public class HiloServidor implements Runnable {
         comandos.put("ADDASIG2TIT", new ComandoADDASIG2TIT());
         comandos.put("LISTASIGFROMTIT", new ComandoLISTASIGFROMTIT());
         comandos.put("REMOVEASIGFROMTIT", new ComandoREMOVEASIGFROMTIT());
+        comandos.put("LISTTIT", new ComandoLISTTIT());
         
         
         comandos.put("ADDMATRICULA", new ComandoADDMATRICULA());
