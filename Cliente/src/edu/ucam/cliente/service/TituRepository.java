@@ -1,6 +1,7 @@
 package edu.ucam.cliente.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.ucam.cliente.interfaces.IChannelData;
@@ -24,10 +25,24 @@ public class TituRepository extends BaseRepository<Titulacion> {
 
 //---------------------------------------------------------------------------------------|    
     
-	@Override
-	public List<Titulacion> list() throws IOException, ClassNotFoundException {
-		return null;
-	}
+    @Override
+    public List<Titulacion> list() throws IOException {
+
+        List<Titulacion> lista = new ArrayList<>();
+
+        comunication.sendCommand("LISTTIT");
+
+        String linea;
+        while (!(linea = comunication.readLine()).equals("FIN")) {
+
+            String[] partes = linea.split(" - ");
+
+            Titulacion t = new Titulacion(partes[0], partes[1], null);
+            lista.add(t);
+        }
+
+        return lista;
+    }
 
 //---------------------------------------------------------------------------------------|    
 	
