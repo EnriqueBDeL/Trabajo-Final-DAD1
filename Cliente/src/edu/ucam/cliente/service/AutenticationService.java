@@ -25,23 +25,27 @@ public class AutenticationService implements IAutentication{
 //-----------------------------------------------------------------------------------------------|	
 	
 	@Override
-	public boolean autenticar(String usuario, String password) throws IOException {
-		
-		String response = comunication.sendCommand("USER " + usuario);
-		
-		ResponseParser parser = new ResponseParser(response);
-		
-		
-		if(parser.isSuccess()) {
-			
-			response = comunication.sendCommand("PASS " + password);
-			parser = new ResponseParser(response);
-            return parser.isSuccess();
-            
-		}
-		
-		return false;
-	}
+public boolean autenticar(String usuario, String password) throws IOException {
+
+    // Usuario
+    String response = comunication.sendCommand("USER " + usuario);
+    ResponseParser parser = new ResponseParser(response);
+
+    if (!parser.isSuccess() || parser.getCode() != 200) {
+        return false;
+    }
+
+    // Contraseña
+    response = comunication.sendCommand("PASS " + password);
+    parser = new ResponseParser(response);
+
+    if (!parser.isSuccess() || parser.getCode() != 200) {
+        return false;
+    }
+
+    return true;
+}
+
 
 //-----------------------------------------------------------------------------------------------|	
 	
