@@ -6,6 +6,10 @@ import edu.ucam.domain.Matricula;
 import edu.ucam.domain.Titulacion;
 
 public class ClientePrincipal {
+	
+	private static boolean idValido(String id) {
+        return id != null && !id.trim().isEmpty();
+    }
     
     public static void main(String args[]) {
         Scanner scanner = new Scanner(System.in);
@@ -70,6 +74,10 @@ public class ClientePrincipal {
                             System.out.println("\n--- NUEVO TÍTULO ---");
                             System.out.print("ID: "); String idT = scanner.nextLine();
                             System.out.print("Nombre: "); String nomT = scanner.nextLine();
+                            if (!idValido(idT)) {
+                                System.out.println("ID inválido.");
+                                break;
+                            }
                             Titulacion t = new Titulacion();
                             t.setId(idT); t.setNombre(nomT);
                             cliente.insertarTitulo(t);
@@ -79,6 +87,10 @@ public class ClientePrincipal {
                             System.out.println("\n--- NUEVA ASIGNATURA ---");
                             System.out.print("ID: "); String idA = scanner.nextLine();
                             System.out.print("Nombre: "); String nomA = scanner.nextLine();
+                            if (!idValido(idA)) {
+                                System.out.println("ID inválido.");
+                                break;
+                            }
                             Asignatura a = new Asignatura();
                             a.setId(idA); a.setNombre(nomA);
                             cliente.insertarAsignatura(a);
@@ -87,6 +99,10 @@ public class ClientePrincipal {
                         case "3": 
                             System.out.println("\n--- NUEVA MATRÍCULA ---");
                             System.out.print("ID Matrícula: "); String idM = scanner.nextLine();
+                            if (!idValido(idM)) {
+                                System.out.println("ID inválido.");
+                                break;
+                            }
                             Matricula m = new Matricula();
                             m.setId(idM); 
                             cliente.insertarMatricula(m);
