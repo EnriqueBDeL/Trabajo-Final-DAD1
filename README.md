@@ -8,8 +8,7 @@
 ![Eclipse](https://img.shields.io/badge/Eclipse-2C2255?style=for-the-badge&logo=eclipse&logoColor=white)
 ![GitKraken](https://img.shields.io/badge/GitKraken-179287?style=for-the-badge&logo=gitkraken&logoColor=white)
 ![Sockets](https://img.shields.io/badge/Sockets-TCP%2FIP-blue?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-En_Desarrollo-yellow?style=for-the-badge)
-
+![Status](https://img.shields.io/badge/Status-Finalizado-brightgreen?style=for-the-badge)
 <br>
 
 <p align="center">
